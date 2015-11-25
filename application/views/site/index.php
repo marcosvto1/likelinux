@@ -86,7 +86,7 @@
 
 <body>
 
-<nav class="navbar bg-inverse navbar-dark navbar-static-top" style="background-color: #3f5b94;border-top: 3px solid #7775e4">
+<nav class="navbar bg-inverse navbar-dark navbar-static-top" style="background-color: #429449;border-top: 3px solid #7775e4">
     <a class="navbar-brand" href="#">TrampoFacil</a>
    <!-- #82d191-->
     <ul class="nav navbar-nav">
