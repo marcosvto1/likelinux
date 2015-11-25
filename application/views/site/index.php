@@ -101,131 +101,80 @@
 </nav>
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
-<div class="jumbotron" style="background-color: #d9e9ec; border-bottom: 3px solid #7775e4">
-    <div class="container">
 
-            <!-- Example row of columns -->
-            <div class="row">
-                <div class="col-md-4">
-                    <h4>Inscreva-se no TrampoFacil!</h4>
-                    <button class="btn btn-block btn-lg btn-success">Inscrever</button>
-                </div>
-
-                <div class="col-md-8">
-                    <form action="" method="get" class="form-inline">
-                        <div class="form-group">
-                             <h3>Buscar Contato:&nbsp;&nbsp;<select class="c-select" name="filtro">
-                                <?php foreach($servicos as $key => $servico){  ?>
-
-                                    <option value="<?php print $servico->id;?>"><?php print $servico->nome;?></option>
-
-                                <?php } ?>
-                            </select></h3>
-                         </div>
-                        <div class="form-group">
-                        <input type="submit" name="serch" class="btn btn-danger btn-block btn-lg" value="FILTRAR"/></div>
-                    </form>
-                </div>
-            </div>
-
-
-
-
-        <h1></h1>
-
-    </div>
-</div>
 
 <div class="container" id="box-main">
     <!-- Example row of columns -->
-    <div class="row">
-
-        <div class="col-md-2" style=" background-color: rgba(240, 246, 249, 0.71);box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08); border-radius: 6px;">
-
-
-                <img src="/dist/img/subway_18-11-2015.jpg" width="180">
-            <hr/>
-            <img src="/dist/img/montana-_23-03_2015.jpg" width="180">
-            <hr/>
-            <img src="/dist/img/shopping_telhas-29-05-2015.jpg" width="180">
-
-         </div>
-
-        <div class="col-md-8">
-            <div class="container" style="padding-top: 30px; background-color: rgba(240, 246, 249, 0.71);box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08); border-radius: 6px;">
-                <div class="panel panel-order">
-                    <div class="panel-heading">
-                        <strong>Lista de Contatos</strong>
-                        <div class="btn-group pull-right">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
-                                    Detalhes <i class="fa fa-filter"></i>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#">Active orders</a></li>
-                                    <li><a href="#">Pending orders</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <hr/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <div class="container bootstrap snippet">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <section class="widget">
+                    <div class="widget-controls">
+                        <a href="#"><i class="fa fa-refresh"></i></a>
+                        <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
                     </div>
-                    <div class="panel-body">
-
-                        <?php foreach($contatos as $key => $contato){  ?>
-                        <div class="row">
-                            <div class="col-md-1"><img class="img-circle" src="http://bootdey.com/img/Content/user-453533-fdadfd.png"></div>
-                            <div class="col-md-11">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="pull-right"><i class="fa fa-certificate"></i> <a type="button" href="/contato/<?php print $contato->id;?>" type="search" class="btn btn-success-outline">Mais Detalhes</a type="button"></div>
-                                        <span><strong><?php print $contato->nome_contato;?></strong></span>
-                                        <span class="label label-warning" style="padding: 4px;"><?php print $contato->nome;?></span>
-                                        <br>
-                                        <span>Email: <?php print $contato->email_contato;?></span>
-                                        <br>
-                                        <span>Telefone: <?php print $contato->telefone_contato;?></span>
-                                    </div>
-                                    <div class="col-md-12" style="background-color:#bfbec6 ">
-                                         </a>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="widget-body">
+                        <div class="post-user mt-n-xs">
+                        <span class="thumb pull-left mr">
+                            <img class="img-circle" src="http://bootdey.com/img/Content/user_2.jpg" alt="...">
+                        </span>
+                            <h5 class="mb-xs mt-xs">Jess <span class="fw-semi-bold">@bootdey</span></h5>
+                            <p class="fs-mini text-muted"><time>25 mins</time> &nbsp; <i class="fa fa-map-marker"></i> &nbsp; near Amsterdam</p>
                         </div>
-                        <?php } ?>
-
-
-
+                        <div class="widget-middle-overflow windget-padding-md clearfix bg-danger text-white">
+                            <h3 class="mt-lg mb-lg">Sing - <span class="fw-semi-bold">Bootdey</span> Gallery of free snippets</h3>
+                            <ul class="tags text-white pull-right">
+                                <li><a href="#">design</a></li>
+                            </ul>
+                        </div>
+                        <p class="text-light fs-mini mt-sm">Lots of cool stuff is happening around you. Just calm down for a sec and listen. Colors, sounds,
+                            thoughts, ideas. </p>
                     </div>
-                    <div class="panel-footer">
-                        <ul class="pagination">
-                            <li class="active"><a href="#">&laquo;</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">&raquo;</a></li>
+                    <footer class="bg-body-light">
+                        <ul class="post-links">
+                            <li><a href="#">1 hour</a></li>
+                            <li><a href="#"><span class="text-danger"><i class="fa fa-heart"></i> Like</span></a></li>
+                            <li><a href="#">Comment</a></li>
                         </ul>
+                    </footer>
+                </section>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <section class="widget">
+                    <div class="widget-controls">
+                        <a href="#"><i class="fa fa-refresh"></i></a>
+                        <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
                     </div>
-                </div>
+                    <div class="widget-body">
+                        <div class="post-user mt-n-xs">
+                        <span class="thumb pull-left mr">
+                            <img class="img-circle" src="http://bootdey.com/img/Content/user_3.jpg" alt="...">
+                        </span>
+                            <h5 class="mb-xs mt-xs">Jess <span class="fw-semi-bold">@bootdey</span></h5>
+                            <p class="fs-mini text-muted"><time>25 mins</time> &nbsp; <i class="fa fa-map-marker"></i> &nbsp; near Amsterdam</p>
+                        </div>
+                        <div class="widget-middle-overflow windget-padding-md clearfix bg-info text-white">
+                            <h3 class="mt-lg mb-lg">Sing - <span class="fw-semi-bold">Next Bootdey</span> Social site for bootstrap lovers</h3>
+                            <ul class="tags text-white pull-right">
+                                <li><a href="#">design</a></li>
+                            </ul>
+                        </div>
+                        <p class="text-light fs-mini mt-sm">Lots of cool stuff is happening around you. Just calm down for a sec and listen. Colors, sounds,
+                            thoughts, ideas. </p>
+                    </div>
+                    <footer class="bg-body-light">
+                        <ul class="post-links">
+                            <li><a href="#">1 hour</a></li>
+                            <li><a href="#"><span class="text-danger"><i class="fa fa-heart"></i> Like</span></a></li>
+                            <li><a href="#">Comment</a></li>
+                        </ul>
+                    </footer>
+                </section>
             </div>
         </div>
-
-        <div class="col-md-2" style=" background-color: rgba(240, 246, 249, 0.71);box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.08); border-radius: 6px;">
-
-
-            <img src="/dist/img/subway_18-11-2015.jpg" width="180" style="padding-top: 10px; ">
-            <hr/>
-            <img src="/dist/img/montana-_23-03_2015.jpg" width="180">
-            <hr/>
-            <img src="/dist/img/shopping_telhas-29-05-2015.jpg" width="180">
-
-
-        </div>
-
     </div>
 
-    <hr>
 
     <footer>
         <p>&copy; TrampoFacil 2015</p>
