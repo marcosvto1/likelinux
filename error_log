@@ -1,0 +1,4 @@
+[03-Nov-2015 16:43:59] PHP Fatal error:  Call to a member function query() on a non-object in /home/findvibe/public_html/application/views/site/index.php on line 95
+[03-Nov-2015 16:45:13] PHP Parse error:  syntax error, unexpected '}' in /home/findvibe/public_html/application/views/site/index.php on line 105
+[03-Nov-2015 16:46:35] PHP Parse error:  syntax error, unexpected '}' in /home/findvibe/public_html/application/views/site/index.php on line 105
+[03-Nov-2015 16:46:37] PHP Parse error:  syntax error, unexpected '}' in /home/findvibe/public_html/application/views/site/index.php on line 105
