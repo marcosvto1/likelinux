@@ -86,23 +86,12 @@
 
 <body>
 
-<nav class="navbar bg-inverse navbar-dark navbar-static-top" style="background-color: #429449;border-top: 3px solid #7775e4">
-    <a class="navbar-brand" href="#">TrampoFacil</a>
+<nav class="navbar bg-inverse navbar-dark navbar-static-top" style="background-color: #00a4a5;border-top: 3px solid #0300e4">
+    <a class="navbar-brand" href="#">LikeLinux</a>
    <!-- #82d191-->
     <ul class="nav navbar-nav">
         <li class="nav-item active">
             <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="#">Aplicativo</a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="#">Sobre nós</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Contato</a>
         </li>
     </ul>
     <!--<form class="form-inline navbar-form pull-right">
