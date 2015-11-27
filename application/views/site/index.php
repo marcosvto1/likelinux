@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>TrampoFacil</title>
+    <title>Like Linux</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -32,153 +32,386 @@
             margin-right: 0px;
             margin-left: 10px;
             max-width: 80.25rem;
+            margin-top: 40px;
+
+        }
+        /* move special fonts to HTML head for better performance */
+        @import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300,400,600,700');
+
+
+        /* custom template */
+        html, body {
+            height: 100%;
+            font-family:'Open Sans',arial,sans-serif;
         }
 
-        .panel-order .row:last-child {
-            border: 0px;
+        a {
+            color:#222222;
         }
 
-        .panel-order .row .col-md-1 {
-            text-align: center;
-            padding-top: 15px;
+        .wrapper, .row {
+            height: 100%;
+            margin-left:0;
+            margin-right:0;
         }
 
-        .panel-order .row .col-md-1 img {
-            width: 50px;
-            max-height: 50px;
+        .wrapper:before, .wrapper:after,
+        .column:before, .column:after {
+            content: "";
+            display: table;
         }
 
-        .panel-order .row .row {
-            border-bottom: 0;
+        .wrapper:after,
+        .column:after {
+            clear: both;
         }
 
-        .panel-order .row .col-md-11 {
-            border-left: 1px solid #ccc;
+        .column {
+            height: 100%;
+            overflow: auto;
+            *zoom:1;
         }
 
-        .panel-order .row .row .col-md-12 {
-            padding-top: 7px;
-            padding-bottom: 7px;
+        .column .padding {
+            padding: 20px;
         }
 
-        .panel-order .row .row .col-md-12:last-child {
-            font-size: 11px;
-            color: #555;
-            background: #efefef;
+        .box {
+            bottom: 0; /* increase for footer use */
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background-image:url('http://lorempixel.com/1024/760/nature/3/');
+            background-size:cover;
+            background-attachment:fixed;
         }
 
-        .panel-order .btn-group {
-            margin: 0px;
-            padding: 0px;
+        .divider {
+            margin-top:32px;
         }
 
-        .panel-order .panel-body {
-            padding-top: 0px;
-            padding-bottom: 0px;
+        #main {
+            background-color:#fefefe;
+        }
+        #main .img-circle {
+            margin-top:18px;
+            height:70px;
+            width:70px;
         }
 
-        .panel-order .panel-deading {
-            margin-bottom: 0;
+        #sidebar, #sidebar a {
+            color: #2f2f2f;
+            background-color:transparent;
+
         }
+
+        #sidebar, #sidebar a:hover {
+            color: #00a4a5;
+            background-color:transparent;
+
+        }
+
+        #sidebar a.logo {
+
+            padding:3px;
+            background-color:#fff;
+            color:#777777;
+            height:40px;
+            width:40px;
+            margin:15px;
+            font-size:26px;
+            font-weight:700;
+            text-align:center;
+            text-decoration:none;
+            text-shadow:0 0 0;
+        }
+        #sidebar-footer {
+            position:absolute;bottom:5px;
+        }
+        #footer {
+            margin-bottom:20px;
+        }
+
+        /* center and adjust the sidebar contents on smaller devices */
+        @media (max-width: 768px) {
+            #sidebar,#sidebar a.logo {
+                text-align:center;
+                margin:0 auto;
+                margin-top:30px;
+                font-size:26px;
+            }
+            #sidebar a.logo {
+                font-size:50px;
+                height:75px;
+                width:75px;
+                margin-bottom:30px;
+            }
+        }
+
+
+
+
+        /* bootstrap overrides */
+
+        h1,h2,h3 {
+            font-weight:800;
+            font-family:'Open Sans',arial,sans-serif;
+        }
+
+        .jumbotron {
+            background-color:transparent;
+        }
+        .label-default {
+            background-color:#666;
+        }
+        .page-header {
+            margin-top: 25px;
+            padding-top: 9px;
+            border-top:1px solid #eeeeee;
+            font-weight:700;
+            text-transform:uppercase;
+            letter-spacing:2px;
+        }
+
+        .col-sm-9.full {
+            width: 100%;
+        }
+
+        small.text-muted {
+            font-family:courier,courier-new,monospace;
+        }
+
+        .loader {
+            display: none;
+            float: left;
+        }
+
+
+
 
     </style>
 </head>
 
 <body>
 
-<nav class="navbar bg-inverse navbar-dark navbar-static-top" style="background-color: #00a4a5;border-top: 3px solid #0300e4">
-    <a class="navbar-brand" href="#">LikeLinux</a>
-   <!-- #82d191-->
+<nav class="navbar bg-inverse navbar-dark navbar-static-top" style="background-color: #ffffff;border-top: 3px solid #64E46A;border-bottom: 2px solid #cecece">
+    <a class="navbar-brand" href="#"><img src="/dist/img/log.png" width="140" height="50"></a>
+   <!-- #82d191
+   background-color: #26519C;
+border-top: 3px solid #64E46A;
+
+background-color: #00a4a5;
+
+   -->
     <ul class="nav navbar-nav">
-        <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
+
     </ul>
-    <!--<form class="form-inline navbar-form pull-right">
-        <input class="form-control" type="text" placeholder="Search">
-        <button class="btn btn-success-outline" type="submit">Search</button>
-    </form>-->
+<form class="form-inline navbar-form pull-right" style="margin-top: 1px">
+        <button class="btn btn-success-outline btn-lg" type="submit">Login</button>
+    </form>
 </nav>
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
 
 
 <div class="container" id="box-main">
-    <!-- Example row of columns -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <div class="container bootstrap snippet">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <section class="widget">
-                    <div class="widget-controls">
-                        <a href="#"><i class="fa fa-refresh"></i></a>
-                        <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
-                    </div>
-                    <div class="widget-body">
-                        <div class="post-user mt-n-xs">
-                        <span class="thumb pull-left mr">
-                            <img class="img-circle" src="http://bootdey.com/img/Content/user_2.jpg" alt="...">
-                        </span>
-                            <h5 class="mb-xs mt-xs">Jess <span class="fw-semi-bold">@bootdey</span></h5>
-                            <p class="fs-mini text-muted"><time>25 mins</time> &nbsp; <i class="fa fa-map-marker"></i> &nbsp; near Amsterdam</p>
-                        </div>
-                        <div class="widget-middle-overflow windget-padding-md clearfix bg-danger text-white">
-                            <h3 class="mt-lg mb-lg">Sing - <span class="fw-semi-bold">Bootdey</span> Gallery of free snippets</h3>
-                            <ul class="tags text-white pull-right">
-                                <li><a href="#">design</a></li>
+
+    <div class="row">
+
+
+
+
+
+        <div class="col-md-10">
+
+                    <div class="row">
+                        <!-- sidebar -->
+                        <div class="col-md-3" id="sidebar" >
+                            <a class="logo" href="#"><img class="img-circle" src="/dist/img/perfil2.jpg" width="" height=""></a>
+
+                            <div class="row divider">
+                                <div class="col-sm-12">Marcos Vinicius<hr></div>
+                            </div>
+                            <ul class="nav nav-pills nav-stacked">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">Meus Links</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Minhas Historias</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/publicar">Publicar</a>
+                                </li>
+
                             </ul>
+
                         </div>
-                        <p class="text-light fs-mini mt-sm">Lots of cool stuff is happening around you. Just calm down for a sec and listen. Colors, sounds,
-                            thoughts, ideas. </p>
-                    </div>
-                    <footer class="bg-body-light">
-                        <ul class="post-links">
-                            <li><a href="#">1 hour</a></li>
-                            <li><a href="#"><span class="text-danger"><i class="fa fa-heart"></i> Like</span></a></li>
-                            <li><a href="#">Comment</a></li>
-                        </ul>
-                    </footer>
-                </section>
+                        <!-- /sidebar -->
+
+                        <!-- main -->
+                        <div class="column col-sm-9" id="main">
+                            <div class="padding">
+                                <div class="full col-sm-9">
+
+                                    <div id="conteudo">
+
+                                        <div class="loader"><img src="/dist/img/200_s.gif"></div>
+
+
+
+
+                                    </div>
+
+
+
+
+                                    <!-- content -->
+
+
+
+
+
+                                    <!-- <div class="row">
+                                         <div class="col-sm-10">
+                                             <h3>How to: Another Fantastical Article</h3>
+                                             <h4><span class="label label-default">bootply.com</span></h4><h4>
+                                                 <small class="text-muted">4 days ago • <a href="#" class="text-muted">Read More</a></small>
+                                             </h4>
+                                         </div>
+                                         <div class="col-sm-2">
+                                             <a href="#" class="pull-right"><img src="http://api.randomuser.me/portraits/thumb/men/86.jpg" class="img-circle"></a>
+                                         </div>
+                                     </div>
+
+                                     <div class="row divider">
+                                         <div class="col-sm-12"><hr></div>
+                                     </div>
+
+                                     <div class="row">
+                                         <div class="col-sm-9">
+                                             <h3>Another Fantastical Article of Interest</h3>
+                                             <h4><span class="label label-default">bootply.com</span></h4><h4>
+                                                 <small class="text-muted">4 days ago • <a href="#" class="text-muted">Read More</a></small>
+                                             </h4>
+                                         </div>
+                                         <div class="col-sm-3">
+                                             <a href="#" class="pull-right"><img src="http://api.randomuser.me/portraits/thumb/women/17.jpg" class="img-circle"></a>
+                                         </div>
+                                     </div>
+
+                                     <div class="col-sm-12">
+                                         <div class="page-header text-muted divider">
+                                             Up Next
+                                         </div>
+                                     </div>
+
+                                     <div class="row">
+                                         <div class="col-sm-4 text-center">
+                                             <h4>Related 1</h4>
+                                             <a href="#"><img src="//placehold.it/400/f0f0f0" class="img-respsonsive img-circle"></a>
+                                         </div>
+                                         <div class="col-sm-4 text-center">
+                                             <h4>Related 2</h4>
+                                             <a href="#"><img src="//placehold.it/400/f0f0f0" class="img-respsonsive img-circle"></a>
+                                         </div>
+                                         <div class="col-sm-4 text-center">
+                                             <h4>Related 3</h4>
+                                             <a href="#"><img src="//placehold.it/400/f0f0f0" class="img-respsonsive img-circle"></a>
+                                         </div>
+                                     </div>
+
+ -->
+                                    <div class="col-sm-12">
+                                        <div class="page-header text-muted divider">
+                                            Conecte-se conosco
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <a href="#">Twitter</a> <small class="text-muted">|</small> <a href="#">Facebook</a> <small class="text-muted">|</small> <a href="#">Google+</a>
+                                        </div>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="row" id="footer">
+                                        <div class="col-sm-6">
+
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <p>
+                                                <a href="#" class="pull-right">©Copyright Inc.</a>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                  <!--  <hr>
+
+                                    <h3 class="text-center">
+                                        <a href="" target="ext">Marcos</a>
+                                    </h3>
+
+                                    <hr>
+                                  -->
+
+                                </div><!-- /col-9 -->
+                            </div><!-- /padding -->
+                        </div>
+
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12">
-                <section class="widget">
-                    <div class="widget-controls">
-                        <a href="#"><i class="fa fa-refresh"></i></a>
-                        <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
-                    </div>
-                    <div class="widget-body">
-                        <div class="post-user mt-n-xs">
-                        <span class="thumb pull-left mr">
-                            <img class="img-circle" src="http://bootdey.com/img/Content/user_3.jpg" alt="...">
-                        </span>
-                            <h5 class="mb-xs mt-xs">Jess <span class="fw-semi-bold">@bootdey</span></h5>
-                            <p class="fs-mini text-muted"><time>25 mins</time> &nbsp; <i class="fa fa-map-marker"></i> &nbsp; near Amsterdam</p>
-                        </div>
-                        <div class="widget-middle-overflow windget-padding-md clearfix bg-info text-white">
-                            <h3 class="mt-lg mb-lg">Sing - <span class="fw-semi-bold">Next Bootdey</span> Social site for bootstrap lovers</h3>
-                            <ul class="tags text-white pull-right">
-                                <li><a href="#">design</a></li>
-                            </ul>
-                        </div>
-                        <p class="text-light fs-mini mt-sm">Lots of cool stuff is happening around you. Just calm down for a sec and listen. Colors, sounds,
-                            thoughts, ideas. </p>
-                    </div>
-                    <footer class="bg-body-light">
-                        <ul class="post-links">
-                            <li><a href="#">1 hour</a></li>
-                            <li><a href="#"><span class="text-danger"><i class="fa fa-heart"></i> Like</span></a></li>
-                            <li><a href="#">Comment</a></li>
-                        </ul>
-                    </footer>
-                </section>
+              <!--  <h1>Alice in Wonderland, part dos</h1>
+                <p>'You ought to be ashamed of yourself for asking such a simple question,' added the Gryphon; and then they both sat silent and looked at poor Alice, who felt ready to sink into the earth. At last the Gryphon said to the Mock Turtle, 'Drive on, old fellow! Don't be all day about it!' and he went on in these words:
+                    'Yes, we went to school in the sea, though you mayn't believe it—'
+                    'I never said I didn't!' interrupted Alice.
+                    'You did,' said the Mock Turtle.</p>
+                <div>
+                    <span class="badge">Posted 2012-08-02 20:47:04</span><div class="pull-right"><span class="label label-default">alice</span> <span class="label label-primary">story</span> <span class="label label-success">blog</span> <span class="label label-info">personal</span> <span class="label label-warning">Warning</span>
+                        <span class="label label-danger">Danger</span></div>
+                </div>
+                <hr>
+                <h1>Revolution has begun!</h1>
+                <p>'I am bound to Tahiti for more men.'
+                    'Very good. Let me board you a moment—I come in peace.' With that he leaped from the canoe, swam to the boat; and climbing the gunwale, stood face to face with the captain.
+                    'Cross your arms, sir; throw back your head. Now, repeat after me. As soon as Steelkilt leaves me, I swear to beach this boat on yonder island, and remain there six days. If I do not, may lightning strike me!'A pretty scholar,' laughed the Lakeman. 'Adios, Senor!' and leaping into the sea, he swam back to his comrades.</p>
+                <div>
+                    <span class="badge">Posted 2012-08-02 20:47:04</span><div class="pull-right"><span class="label label-default">alice</span> <span class="label label-primary">story</span> <span class="label label-success">blog</span> <span class="label label-info">personal</span> <span class="label label-warning">Warning</span>
+                        <span class="label label-danger">Danger</span></div>
+                </div>
+                <hr> -->
             </div>
+        <div class="col-md-2">
+            <h4 class="headline text-muted">
+                Categorias
+            </h4>
+
+                  <hr>
+
+                <ul class="nav nav-pills nav-stacked">
+
+                    <?php foreach($categorias as $key => $categoria){?>
+                        <li class="nav-item">
+                            <a class="nav-link filter" id="" href="filter/<?php print $categoria->id; ?>"><?php print $categoria->nome_categoria; ?></a>
+                        </li>
+
+                    <?php }?>
+
+                </ul>
+
+
         </div>
+
+
+
     </div>
 
-
-    <footer>
+    <!--    <footer>
         <p>&copy; TrampoFacil 2015</p>
-    </footer>
+    </footer> -->
 </div> <!-- /container -->
 
 
@@ -186,7 +419,7 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="/dist/js/app/home.js"></script>
 <script src="/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

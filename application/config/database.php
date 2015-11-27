@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'www.trampofacil.tk',
-	'username' => 'trampofa_user',
-	'password' => 'trampodb',
-	'database' => 'trampofa_bd',
+	'hostname' => 'mysql.hostinger.com.br',
+	'username' => 'u102884618_user',
+	'password' => '46557985',
+	'database' => 'u102884618_db',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
