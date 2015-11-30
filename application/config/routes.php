@@ -56,11 +56,34 @@ $route['contato/listar'] = 'contato/getContato';
 $route['home'] = 'site/index';
 $route['filter/(:num)'] = 'site/filterCategoria/$1';
 $route['listagem/post'] = 'site/getPostAll';
-$route['publicar'] = 'site/publicar';
-$route['publicar/post'] = 'site/publicar_post';
+$route['global_links'] = 'site/globalPost';
+
 $route['agenda'] = 'site/agenda';
 $route['coberturas'] = 'site/fotos';
 $route['top12'] = 'site/topfotos';
 $route['blogs'] = 'site/blogs';
+$route['login'] = 'site';
+/*usuario*/
+$route['cadastro'] = 'usuario/cadastro';
+$route['cadastrar/insert'] = 'usuario/cadastrar';
+$route['login/auth'] = 'usuario/logar';
+$route['filter/user/(:num)'] = 'usuario/getPostFilterByUser/$1';
+$route['editar/perfil'] = 'usuario/editarPerfil';
+$route['publicar'] = 'usuario/publicar';
+$route['publicar/post'] = 'usuario/publicar_post';
 
 
+/* listagem de post */
+//$route['listagem/postUser'] = 'usuario/getPostByUser/';
+$route['listagem/postUser'] = 'usuario/getPostByUserPaginarion';
+$route['mylinks'] = 'usuario/home';
+
+/*-------------- */
+
+$route['foto/ajax_upload/(:any)/(:any)/(:num)/(:num)/(:num)/(:num)'] ='usuario/ajax_upload/$1/$2/$3/$4/$5/$6';
+
+$route['foto/upload'] = 'usuario/upload';
+/*visualizar perfil */
+
+$route['perfil/(:any)/(:num)'] = 'usuario/exibirPerfil/$1/$2';
+$route['logout'] = 'usuario/logout';

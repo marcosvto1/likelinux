@@ -17,6 +17,7 @@
 
     <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet">
+    <link rel="stylesheet" href="/dist/jcrop/css/jquery.Jcrop.css" type="text/css" />
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
@@ -149,6 +150,12 @@
             }
         }
 
+        .error {
+            color:red;
+            font-size:15px;
+            margin-bottom:-15px
+            padding: 3px;
+        }
 
 
 
@@ -182,11 +189,6 @@
             font-family:courier,courier-new,monospace;
         }
 
-        .loader {
-            display: none;
-            float: left;
-        }
-
 
 
 
@@ -195,21 +197,27 @@
 
 <body>
 
-<nav class="navbar bg-inverse navbar-dark navbar-static-top" style="background-color: #ffffff;border-top: 3px solid #64E46A;border-bottom: 2px solid #cecece">
-    <a class="navbar-brand" href="#"><img src="/dist/img/log.png" width="140" height="50"></a>
-   <!-- #82d191
-   background-color: #26519C;
-border-top: 3px solid #64E46A;
+<nav class="navbar navbar-light bg-faded " style="padding: 10px;border-top: 3px solid #29a581;border-radius: 0;">
+    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+        &#9776;
+    </button>
+    <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+        <a class="navbar-brand" style="color: rgba(41, 165, 129, 0.86)">Links</a>
+        <!-- #82d191
+        background-color: #26519C;
+     border-top: 3px solid #64E46A;
 
-background-color: #00a4a5;
+     background-color: #00a4a5;
 
-   -->
-    <ul class="nav navbar-nav">
+        -->
+        <ul class="nav navbar-nav">
+            <li class="nav-item active" >
+                <a class="nav-link" href="/home">Home</a>
+            </li>
 
-    </ul>
-<form class="form-inline navbar-form pull-right" style="margin-top: 1px">
-        <button class="btn btn-success-outline btn-lg" type="submit">Login</button>
-    </form>
+        </ul>
+
+    </div>
 </nav>
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -219,207 +227,145 @@ background-color: #00a4a5;
 
     <div class="row">
 
+        <div class="col-md-7">
 
+            <div class="row">
+                <!-- sidebar -->
 
+                <!-- /sidebar -->
 
+                <!-- main -->
+                <div class="column col-sm-9" id="main" style="background-color: #f2f2f2">
+                    <div class="padding">
+                        <div class="full col-sm-9">
+                            <!-- content -->
+                            <?php if(isset($_GET['ok'])){
 
-        <div class="col-md-10">
-
-                    <div class="row">
-                        <!-- sidebar -->
-                        <div class="col-md-3" id="sidebar" >
-                            <a class="logo" href="#"><img class="img-circle" src="/dist/img/perfil2.jpg" width="" height=""></a>
-
-                            <div class="row divider">
-                                <div class="col-sm-12">Marcos Vinicius<hr></div>
+                                print "<h3>Cadastrado Realizado com Sucesso!!!</h3>";
+                            }?>
+                            <div class="col-sm-12" id="featured">
+                                <h4 class="headline text-muted">
+                                    Cadastro
+                                </h4>
+                                <hr>
                             </div>
-                            <ul class="nav nav-pills nav-stacked">
+                            <!--/top story-->
+                            <div class="row">
+                                <div class="col-sm-10">
 
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/">Meus Links</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Minhas Historias</a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/publicar">Publicar</a>
-                                </li>
-
-                            </ul>
-
-                        </div>
-                        <!-- /sidebar -->
-
-                        <!-- main -->
-                        <div class="column col-sm-9" id="main">
-                            <div class="padding">
-                                <div class="full col-sm-9">
-
-                                    <div id="conteudo">
-
-                                        <div class="loader"><img src="/dist/img/200_s.gif"></div>
-
-
-
-
-                                    </div>
-
-
-
-
-                                    <!-- content -->
+                                    <?php echo form_open('cadastrar/insert'); ?>
+                                   <!-- <form method="post" action="/cadastrar/insert">-->
+                                        <fieldset class="form-group">
+                                            <label for="exampleInputEmail1">Nome Completo</label>
+                                            <input type="text" class="form-control" name="nome_usuario" id="exampleInputEmail1"  value="<?php echo set_value('nome_usuario'); ?>" placeholder="Nome Completo">
+                                            <?php echo form_error('nome_usuario'); ?>
+                                            <!--<small class="text-muted">We'll never share your email with anyone else.</small> -->
+                                        </fieldset>
+                                        <fieldset class="form-group">
+                                            <label for="exampleInputPassword1">Usuario</label>
+                                            <input type="text" name="login_usuario_cad" class="form-control" id="exampleInputPassword1" value="<?php echo set_value('login_usuario_cad'); ?>" placeholder="Nome de Usuario">
+                                            <?php echo form_error('login_usuario_cad'); ?>
+                                        </fieldset>
+                                        <fieldset class="form-group">
+                                            <label for="exampleSelect1">Senha</label>
+                                            <input type="password" name="senha_usuario_cad" class="form-control" id="exampleInputPassword1" placeholder="Sua Senha">
+                                            <?php echo form_error('senha_usuario_cad'); ?>
+                                        </fieldset>
+                                        <fieldset class="form-group">
+                                            <label for="exampleInputPassword1">Email</label>
+                                            <input type="email" name="email_usuario" class="form-control" value="<?php echo set_value('email_usuario'); ?>" id="exampleInputPassword1" placeholder="Email">
+                                            <?php echo form_error('email_usuario'); ?>
+                                        </fieldset>
+                                        <fieldset class="form-group">
+                                            <label for="exampleInputPassword1">Descrição</label>
+                                            <input type="text" name="descricao_usuario" class="form-control" value="<?php echo set_value('descricao_usuario'); ?>" id="exampleInputPassword1" placeholder="Decrição">
+                                        </fieldset>
 
 
 
+                                        <button type="submit" name="submit"  class="btn btn-primary">Cadastrar</button>
+                                    </form>
+                                    <br/>
+                                </div>
+                                <div class="col-sm-2">
+                                    <!-- <a href="#" class="pull-right"><img src="http://api.randomuser.me/portraits/thumb/men/19.jpg" class="img-circle"></a>-->
+                                </div>
+                            </div>
 
 
-                                    <!-- <div class="row">
-                                         <div class="col-sm-10">
-                                             <h3>How to: Another Fantastical Article</h3>
-                                             <h4><span class="label label-default">bootply.com</span></h4><h4>
-                                                 <small class="text-muted">4 days ago • <a href="#" class="text-muted">Read More</a></small>
-                                             </h4>
-                                         </div>
-                                         <div class="col-sm-2">
-                                             <a href="#" class="pull-right"><img src="http://api.randomuser.me/portraits/thumb/men/86.jpg" class="img-circle"></a>
-                                         </div>
-                                     </div>
-
-                                     <div class="row divider">
-                                         <div class="col-sm-12"><hr></div>
-                                     </div>
-
-                                     <div class="row">
-                                         <div class="col-sm-9">
-                                             <h3>Another Fantastical Article of Interest</h3>
-                                             <h4><span class="label label-default">bootply.com</span></h4><h4>
-                                                 <small class="text-muted">4 days ago • <a href="#" class="text-muted">Read More</a></small>
-                                             </h4>
-                                         </div>
-                                         <div class="col-sm-3">
-                                             <a href="#" class="pull-right"><img src="http://api.randomuser.me/portraits/thumb/women/17.jpg" class="img-circle"></a>
-                                         </div>
-                                     </div>
-
-                                     <div class="col-sm-12">
-                                         <div class="page-header text-muted divider">
-                                             Up Next
-                                         </div>
-                                     </div>
-
-                                     <div class="row">
-                                         <div class="col-sm-4 text-center">
-                                             <h4>Related 1</h4>
-                                             <a href="#"><img src="//placehold.it/400/f0f0f0" class="img-respsonsive img-circle"></a>
-                                         </div>
-                                         <div class="col-sm-4 text-center">
-                                             <h4>Related 2</h4>
-                                             <a href="#"><img src="//placehold.it/400/f0f0f0" class="img-respsonsive img-circle"></a>
-                                         </div>
-                                         <div class="col-sm-4 text-center">
-                                             <h4>Related 3</h4>
-                                             <a href="#"><img src="//placehold.it/400/f0f0f0" class="img-respsonsive img-circle"></a>
-                                         </div>
-                                     </div>
-
- -->
-                                    <div class="col-sm-12">
-                                        <div class="page-header text-muted divider">
-                                            Conecte-se conosco
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <a href="#">Twitter</a> <small class="text-muted">|</small> <a href="#">Facebook</a> <small class="text-muted">|</small> <a href="#">Google+</a>
-                                        </div>
-                                    </div>
-
-                                    <hr>
-
-                                    <div class="row" id="footer">
-                                        <div class="col-sm-6">
-
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p>
-                                                <a href="#" class="pull-right">©Copyright Inc.</a>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                  <!--  <hr>
-
-                                    <h3 class="text-center">
-                                        <a href="" target="ext">Marcos</a>
-                                    </h3>
-
-                                    <hr>
-                                  -->
-
-                                </div><!-- /col-9 -->
-                            </div><!-- /padding -->
-                        </div>
+                        </div><!-- /col-9 -->
+                    </div><!-- /padding -->
+                </div>
 
             </div>
-              <!--  <h1>Alice in Wonderland, part dos</h1>
-                <p>'You ought to be ashamed of yourself for asking such a simple question,' added the Gryphon; and then they both sat silent and looked at poor Alice, who felt ready to sink into the earth. At last the Gryphon said to the Mock Turtle, 'Drive on, old fellow! Don't be all day about it!' and he went on in these words:
-                    'Yes, we went to school in the sea, though you mayn't believe it—'
-                    'I never said I didn't!' interrupted Alice.
-                    'You did,' said the Mock Turtle.</p>
-                <div>
-                    <span class="badge">Posted 2012-08-02 20:47:04</span><div class="pull-right"><span class="label label-default">alice</span> <span class="label label-primary">story</span> <span class="label label-success">blog</span> <span class="label label-info">personal</span> <span class="label label-warning">Warning</span>
-                        <span class="label label-danger">Danger</span></div>
-                </div>
-                <hr>
-                <h1>Revolution has begun!</h1>
-                <p>'I am bound to Tahiti for more men.'
-                    'Very good. Let me board you a moment—I come in peace.' With that he leaped from the canoe, swam to the boat; and climbing the gunwale, stood face to face with the captain.
-                    'Cross your arms, sir; throw back your head. Now, repeat after me. As soon as Steelkilt leaves me, I swear to beach this boat on yonder island, and remain there six days. If I do not, may lightning strike me!'A pretty scholar,' laughed the Lakeman. 'Adios, Senor!' and leaping into the sea, he swam back to his comrades.</p>
-                <div>
-                    <span class="badge">Posted 2012-08-02 20:47:04</span><div class="pull-right"><span class="label label-default">alice</span> <span class="label label-primary">story</span> <span class="label label-success">blog</span> <span class="label label-info">personal</span> <span class="label label-warning">Warning</span>
-                        <span class="label label-danger">Danger</span></div>
-                </div>
-                <hr> -->
+
+        </div>
+        <div class="col-md-4">
+            <div class="column col-sm-12" style="background-color: #f2f2f2" >
+                <div class="padding">
+                    <div class="full col-sm-12">
+                        <!-- content -->
+
+                        <div class="col-sm-12" id="featured">
+                            <h4 class="headline text-muted">
+                                Login
+                            </h4>
+                            <hr>
+                        </div>
+                        <!--/top story-->
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <?php echo form_open('login/auth'); ?>
+
+                                    <fieldset class="form-group">
+                                        <label for="exampleInputPassword1">Usuario</label>
+                                        <input type="text" name="login_usuario" class="form-control" id="exampleInputPassword1" value="<?php echo set_value('login_usuario'); ?>"placeholder="Nome de Usuario">
+                                        <?php echo form_error('login_usuario'); ?>
+                                    </fieldset>
+                                    <fieldset class="form-group">
+                                        <label for="exampleSelect1">Senha</label>
+                                        <input type="password" name="senha_usuario" class="form-control" id="exampleInputPassword1" placeholder="Sua Senha">
+                                        <?php echo form_error('senha_usuario'); ?>
+                                    </fieldset>
+
+                                    <button type="submit" name="submit" class="btn btn-primary">Entrar</button>
+                                </form>
+                                <br/>
+                            </div>
+                            <br/>
+                            <div class="col-sm-2">
+                                <!-- <a href="#" class="pull-right"><img src="http://api.randomuser.me/portraits/thumb/men/19.jpg" class="img-circle"></a>-->
+                            </div>
+                        </div>
+
+
+
+
+                    </div><!-- /col-9 -->
+                </div><!-- /padding -->
             </div>
-        <div class="col-md-2">
-            <h4 class="headline text-muted">
-                Categorias
-            </h4>
-
-                  <hr>
-
-                <ul class="nav nav-pills nav-stacked">
-
-                    <?php foreach($categorias as $key => $categoria){?>
-                        <li class="nav-item">
-                            <a class="nav-link filter" id="" href="filter/<?php print $categoria->id; ?>"><?php print $categoria->nome_categoria; ?></a>
-                        </li>
-
-                    <?php }?>
-
-                </ul>
 
 
         </div>
 
 
 
-    </div>
-
-    <!--    <footer>
-        <p>&copy; TrampoFacil 2015</p>
-    </footer> -->
-</div> <!-- /container -->
 
 
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="/dist/js/app/home.js"></script>
-<script src="/dist/js/bootstrap.min.js"></script>
+
+
+        <!--    <footer>
+            <p>&copy; TrampoFacil 2015</p>
+        </footer> -->
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/dist/jcrop/js/jquery.Jcrop.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
