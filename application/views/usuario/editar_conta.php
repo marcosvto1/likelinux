@@ -1,38 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-
-    <title>Like Linux</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Custom styles for this template -->
-    <link href="/dist/css/style.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,600' rel='stylesheet' type='text/css'>
-
-
-
-</head>
-
-<body>
-
-<!-- nav -->
-
-<?php include '/home/u102884618/public_html/application/views/usuario/nav.php'; ?>
-<!-- /nav -->
+<?php  $this->load->view('template/topo'); ?>
+<!--  fim topo -->
 
 <!-- Main jumbotron for a primary marketing message or call to action -->
 
@@ -40,38 +7,36 @@
 <div class="container" id="box-main">
 
     <div class="row">
-
-
-
-
+        <!-- menu -->
+        <div class="col-md-2" id="box-profile">
+            <!-- sidebar -->
+            <?php  $this->load->view('template/menu'); ?>
+            <!-- /sidebar -->
+        </div>
+        <!-- fim menu -->
 
         <div class="col-md-10">
-
             <div class="row">
-                <!-- sidebar -->
-                <?php include '/home/u102884618/public_html/application/views/usuario/menu.php'; ?>
-                <!-- /sidebar -->
-
-                <!-- main -->
-
-                <div class="column col-sm-9" id="main">
-                    <div class="padding">
-                        <div class="full col-sm-9">
+                <div class="column col-sm-12" id="main">
+                    <div class="full col-sm-12">
+                        <div id="conteudo-main">
                             <div class="box-conteudo">
+                               <div class="widget">
                                 <!-- content -->
-                                <?php if(isset($_GET['ok'])){
+                                   <?php if(isset($_GET['ok'])){
 
-                                    print "<h3>Post Publicado</h3>";
-                                }?>
+                                       print '<br/><div class="alert alert-success" role="alert">
+                                                   <h3>Conta Atualizada</h3>
+                                                </div>';
+                                   }?>
+                                     <div class="col-sm-12" id="featured">
+                                         <br/> <h4>Editar Conta</h4>
+                                         <hr/>
+                                     </div>
 
-                                <div class="col-sm-12" id="featured">
-                                    <h4>Editar Conta</h4>
-                                    <hr/>
-                                </div>
-
-                                <!--/top story-->
-                                <div class="row">
-                                    <div class="col-sm-10">
+                                    <!--/top story-->
+                                    <div class="row">
+                                        <div class="col-sm-10">
 
                                         <ul class="nav nav-tabs" role="tablist">
 
@@ -89,7 +54,7 @@
 
                                             <div role="tabpanel" class="tab-pane active" id="profile">
                                                 <br/>
-                                                <?php echo form_open('atualizar/insert'); ?>
+                                                <?php echo form_open('editar/perfil/update'); ?>
                                                 <!-- <form method="post" action="/cadastrar/insert">-->
                                                 <fieldset class="form-group">
                                                     <label for="exampleInputEmail1">Nome Completo</label>
@@ -119,7 +84,7 @@
 
 
 
-                                                <button type="submit" name="submit"  class="btn btn-primary">Cadastrar</button>
+                                                <button type="submit" name="submit"  class="btn btn-primary">Atualizar</button>
                                                 </form>
                                                 <br/>
 
@@ -181,29 +146,18 @@
                                     </div>
 
                                 </div>
+                                </div><!-- /widget -->
 
-
-
-
-
-                            </div><!-- /col-9 -->
-                        </div> <!-- box conteudo -->
-                    </div><!-- /padding -->
+                             </div> <!-- box conteudo -->
+                        </div>
+                     </div>
                 </div>
-
-
             </div>
-
         </div>
-
-
-
 
     </div>
 
-    <!--    <footer>
-        <p>&copy; TrampoFacil 2015</p>
-    </footer> -->
+
 </div> <!-- /container -->
 
 

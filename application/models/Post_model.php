@@ -4,6 +4,7 @@ class Post_model extends CI_Model {
     public $id_post;
     public $titulo_post;
     public $conteudo_post;
+    public $tipo_post;
     public $id_categoria_post;
     public $id_usuario_post;
     public $data_post;
@@ -16,27 +17,78 @@ class Post_model extends CI_Model {
         $this->load->database();
     }
 
-    public function get()
+    public function getPagination($id_last,$limit)
     {
-        $query = $this->db->query('
-                    SELECT A.id_post, A.titulo_post, A.conteudo_post ,B.nome_categoria, C.imagem_usuario,C.login_usuario,C.id_usuario
-                    FROM tb_post A , tb_categoria B,tb_usuario C
-                    WHERE A.id_categoria_post = B.id_categoria AND A.id_usuario_post = C.id_usuario ORDER by A.id_post desc');
+        $sql = 'SELECT A.id_post, A.titulo_post, A.conteudo_post, A.tipo_post,B.nome_categoria, C.imagem_usuario,C.login_usuario,C.id_usuario
+                  FROM tb_post A , tb_categoria B,tb_usuario C
+                  WHERE A.id_post < ?
+                    AND A.id_categoria_post = B.id_categoria
+                    AND A.id_usuario_post = C.id_usuario
+                      ORDER by A.id_post DESC LIMIT 0, ? ';
+        $query = $this->db->query($sql,array($id_last,$limit));
 //$query = $this->db->get('contatos');
         return $query->result();
     }
 
+    public function get()
+    {
+        $sql = 'SELECT A.id_post, A.titulo_post, A.conteudo_post, A.tipo_post,B.nome_categoria, C.imagem_usuario,C.login_usuario,C.id_usuario
+                  FROM tb_post A , tb_categoria B,tb_usuario C
+                  WHERE A.id_categoria_post = B.id_categoria
+                    AND A.id_usuario_post = C.id_usuario
+                      ORDER by A.id_post DESC LIMIT 0, 9 ';
+        $query = $this->db->query($sql);
+//$query = $this->db->get('contatos');
+        return $query->result();
+    }
 
+    public function getByCategoriaUser($categoria,$id_user,$id_last,$limit){
+        $sql = "
+                SELECT A.id_post, A.titulo_post, A.conteudo_post,A.tipo_post ,B.nome_categoria, C.imagem_usuario,C.login_usuario,C.id_usuario
+                FROM tb_post A , tb_categoria B, tb_usuario C
+                WHERE A.id_categoria_post = B.id_categoria
+                AND A.id_usuario_post = C.id_usuario
+                AND C.id_usuario = ?
+                AND A.id_categoria_post = ?
+                 ORDER by A.id_post DESC LIMIT 0, ? ";
+
+
+        $query = $this->db->query($sql,array($id_user,$categoria,$limit));
+
+        return $query->result();
+
+    }
+
+    //selecionar todas post via categoria por usario
+    public function getByCategoriaUserPagination($categoria,$id_user,$id_last,$limit){
+        $sql = "
+                SELECT A.id_post, A.titulo_post, A.conteudo_post,A.tipo_post ,B.nome_categoria, C.imagem_usuario,C.login_usuario,C.id_usuario
+                FROM tb_post A , tb_categoria B, tb_usuario C
+                WHERE A.id_post < ?
+                AND A.id_categoria_post = B.id_categoria
+                AND A.id_usuario_post = C.id_usuario
+                AND C.id_usuario = ?
+                AND A.id_categoria_post = ?
+                 ORDER by A.id_post DESC LIMIT 0, ? ";
+
+
+        $query = $this->db->query($sql,array($id_last,$id_user,$categoria,$limit));
+
+        return $query->result();
+
+    }
+
+    //selecionar todas post por usario
     public function getByUserPagination($id_user,$id_last,$limit){
 
 
         $sql = "
-                SELECT A.id_post, A.titulo_post, A.conteudo_post ,B.nome_categoria, C.imagem_usuario,C.login_usuario,C.id_usuario
+                SELECT A.id_post, A.titulo_post, A.conteudo_post,A.tipo_post ,B.nome_categoria, C.imagem_usuario,C.login_usuario,C.id_usuario
                 FROM tb_post A , tb_categoria B, tb_usuario C
-                WHERE A.id_post > ?
+                WHERE A.id_post < ?
                 AND A.id_categoria_post = B.id_categoria
                 AND A.id_usuario_post = C.id_usuario
-                AND C.id_usuario = ? ORDER by A.id_post ASC LIMIT 0, ? ";
+                AND C.id_usuario = ? ORDER by A.id_post DESC LIMIT 0, ? ";
 
 
         $query = $this->db->query($sql,array($id_last,$id_user,$limit));
@@ -45,15 +97,28 @@ class Post_model extends CI_Model {
 
     }
 
+    public function getPostId($id){
+        $sql = "
+                SELECT *
+                FROM tb_post
+                WHERE id_post = ?
+                ";
+
+
+        $query = $this->db->query($sql,array($id));
+
+        return $query->result();
+    }
+
 
 
     public function getByUser($id){
         $sql = "
-                SELECT A.id_post, A.titulo_post, A.conteudo_post ,B.nome_categoria, C.imagem_usuario,C.login_usuario,C.id_usuario
+                SELECT A.id_post, A.titulo_post, A.conteudo_post ,A.tipo_post, B.nome_categoria, C.imagem_usuario,C.login_usuario,C.id_usuario
                 FROM tb_post A , tb_categoria B, tb_usuario C
                 WHERE A.id_categoria_post = B.id_categoria
                 AND A.id_usuario_post = C.id_usuario
-                AND C.id_usuario = ? ORDER by A.id_post ASC LIMIT 0, 5 ";
+                AND C.id_usuario = ? ORDER by A.id_post DESC LIMIT 0, 9 ";
 
 
         $query = $this->db->query($sql,array($id));
@@ -64,7 +129,7 @@ class Post_model extends CI_Model {
 
     public  function getCategoriaByUser($categoria,$usuario){
         $sql = "
-                SELECT A.id_post, A.titulo_post, A.conteudo_post ,B.nome_categoria, C.imagem_usuario, C.login_usuario, C.id_usuario
+                SELECT A.id_post, A.titulo_post, A.conteudo_post ,A.tipo_post,B.nome_categoria, C.imagem_usuario, C.login_usuario, C.id_usuario
                 FROM tb_post A , tb_categoria B, tb_usuario C
                 WHERE A.id_categoria_post = B.id_categoria
                 AND A.id_usuario_post = C.id_usuario
@@ -81,7 +146,7 @@ class Post_model extends CI_Model {
 
 
         $sql = "
-                SELECT A.id_post, A.titulo_post, A.conteudo_post ,B.nome_categoria, C.imagem_usuario, C.login_usuario,C.id_usuario
+                SELECT A.id_post, A.titulo_post, A.conteudo_post, A.tipo_post,B.nome_categoria, C.imagem_usuario, C.login_usuario,C.id_usuario
                 FROM tb_post A , tb_categoria B, tb_usuario C
                 WHERE A.id_categoria_post = B.id_categoria
                  AND A.id_usuario_post = C.id_usuario
@@ -106,16 +171,25 @@ class Post_model extends CI_Model {
         $this->id_usuario_post  = $data['id_usuario'];
         $this->data_post  = $data['data_post'];
         $this->data_update_post  = $data['data_post'];
+        $this->tipo_post = $data['tipo_post'];
         $this->db->insert('tb_post', $this);
     }
 
-    public function update_entry()
+    public function update_post($data)
     {
-        $this->title    = $_POST['title'];
-        $this->content  = $_POST['content'];
-        $this->date     = time();
+        $this->titulo_post   = $data['titulo_post']; // please read tue below note
+        $this->conteudo_post = $data['conteudo_post'];
+        $this->id_categoria_post  = $data['id_categoria_post'];
+        $this->id_usuario_post  = $data['id_usuario_post'];
+        $this->data_post  = $data['data_post'];
+        $this->data_update_post  = $data['data_post'];
+        $this->tipo_post = $data['tipo_post'];
 
-        $this->db->update('entries', $this, array('id' => $_POST['id']));
+        $this->db->update('tb_post', $data, array('id_post' => $data['id_post']));
+    }
+    public function remover_post($id){
+        $this->db->where('id_post', $id);
+        $this->db->delete('tb_post');
     }
 
 }

@@ -23,7 +23,31 @@ class Usuario extends CI_Controller {
 
     }
 
+    public function teste(){
+        $this->load->library('session');
+        if($this->session->userdata('logged_in'))
+        {
+            $session_data = $this->session->userdata('logged_in');
+            $id = $session_data['id'];
+            $data['categorias'] = $this->categoria_model->getCategoriaByUsuario($id);
+            $dados = $this->usuario_model->getbyid($id);
+            foreach($dados as $row){
+                $data['nome_usuario'] = $row->login_usuario;
+                $data['imagem_usuario'] = $row->imagem_usuario;            }
 
+            $data['posts']= $this->post_model->getByUser($id);
+
+
+
+            $this->load->view('usuario/teste', $data);
+            ///print "sexo";
+        }
+        else
+        {
+            //If no session, redirect to login page
+            redirect('login', 'refresh');
+        }
+    }
 
     public function getPostByUserPaginarion(){
 
@@ -33,41 +57,54 @@ class Usuario extends CI_Controller {
             $session_data = $this->session->userdata('logged_in');
             $id_user = $session_data['id'];
             $last_id = $this->input->post('last_id');
-            $limit = 5; // default value
+            $limit = 9; // default value
             $dados =$this->post_model->getByUserPagination($id_user,$last_id,$limit);
 
             $last_id = 0;
+            $link_post = "";
+            //<a href="'.$post->conteudo_post.'" target="_blank" class="btn btn-primary-outline">visualizar conteudo</a>
             foreach($dados as $key => $post) {
+                if($post->tipo_post == 1){
+                    $link_post = '<a href="'.$post->conteudo_post.'" target="_blank" class="btn btn-primary-outline">Visualizar</a>';
+                }else if($post->tipo_post == 2){
+                    $link_post = '<a href="/v/'.$post->id_post.'/'.url_title($post->titulo_post).'" class="btn btn-primary-outline">Visualizar</a>';
+                }
                 $last_id = $post->id_post;
-                echo '<div class="col-sm-12" id="featured">
-        <div class="page-header text-muted">'.
-                    $post->nome_categoria.'
-        </div>
-    </div>
+                            echo '<div class="widget">
+                                    <div class="widget-controls">
+                                        <a href="/editar/post/'.$post->id_post.'"><i class="fa fa-pencil-square-o fa-2x"></i> </a>
+                                        <a href="/remover/post/'.$post->id_post.'" id="remover_post" class="po" data-toggle="popover"><i class="fa fa-trash-o fa-2x"></i>
+                                            </i></a>
+                                    </div>
+                                    <div class="col-sm-12" id="featured">
+                                        <div class="page-header2 text-muted">
+                                            '.$post->nome_categoria.'
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <hr/>
+                                            <h3>'.$post->titulo_post.'</h3>
 
-    <!--/top story-->
+                                            <h4>'.$link_post.'</h4>
+                                            <h4>
 
-    <div class="row">
-        <div class="col-sm-10">
-            <h3>'.$post->titulo_post.'</h3>
-            <h4><a href="'.$post->conteudo_post.'" target="_blank" class="btn btn-primary-outline">visualizar conteudo</a></h4><h4>
+                                                <p class="fs-mini text-muted"><time>25 mins</time> &nbsp; <i class="fa fa-map-marker"></i> &nbsp; near Amsterdam</p>
 
-                <!--<h4><span class="label label-default"><a href="http://blog.hostdime.com.br/materias/tecnologia/varnish-cache-o-que-e-e-como-implementa-lo/">visualizar conteudo</a></span></h4><h4>-->
-                <small class="text-muted">1 hora agosto • <a href="#" class="text-muted">Mais Informação</a></small>
-            </h4>
-        </div>
-        <div class="col-sm-2">
-   <a href="/perfil/'.url_title($post->login_usuario).'/'.$post->id_usuario.'" class="pull-right" id="imagem_user"><img src="'.$post->imagem_usuario.'" class="img-thumbnail img-circle" >'.$post->login_usuario.'</a>
-        </div>
-    </div>
-
-
-    ';}
+                                            </h4>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <a href="/perfil/'.url_title($post->login_usuario).'/'.$post->id_usuario.'" class="pull-right" id="imagem_user"><img src="'.$post->imagem_usuario.'" class="img-thumbnail img-circle" >'.$post->login_usuario.'</a>
+                                        </div>
+                                    </div>
+                                 </div>';
+            }
 
             if ($last_id != 0) {
                 echo '<script type="text/javascript">var last_id = '.$last_id.';</script>';
+                echo '<script type="text/javascript">var contador = '.count($dados).';</script>';
             }
-            sleep(0.5);
+            sleep(1);
 
 
         }else{
@@ -136,7 +173,7 @@ class Usuario extends CI_Controller {
     <div class="row">
         <div class="col-sm-10">
             <h3>'.$post->titulo_post.'</h3>
-            <h4><a href="'.$post->conteudo_post.'" target="_blank" class="btn btn-primary-outline">visualizar conteudo</a></h4><h4>
+            <h4><a href="'.$post->conteudo_post.'" target="_blank" class="btn btn-primary-outline">Visualizar</a></h4><h4>
 
                 <!--<h4><span class="label label-default"><a href="http://blog.hostdime.com.br/materias/tecnologia/varnish-cache-o-que-e-e-como-implementa-lo/">visualizar conteudo</a></span></h4><h4>-->
                 <small class="text-muted">1 hora agosto • <a href="#" class="text-muted">Mais Informação</a></small>
@@ -156,6 +193,77 @@ class Usuario extends CI_Controller {
         }
     }
 
+    public function getPostFilterCategoriaPagination($id){
+        $this->load->library('session');
+        if($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            $id_user = $session_data['id'];
+
+            $last_id = $this->input->post('last_id');
+            $limit = 9; // default value
+
+            if(is_null($last_id)){
+               $last_id = 0;
+                $dados = $this->post_model->getByCategoriaUser($id,$id_user,$last_id,$limit);
+            }else{
+                $dados =$this->post_model->getByCategoriaUserPagination($id,$id_user,$last_id,$limit);
+            }
+
+            $countData = 1;
+            $last_id = 0;
+            $link_post = "";
+            //<a href="'.$post->conteudo_post.'" target="_blank" class="btn btn-primary-outline">visualizar conteudo</a>
+            foreach($dados as $key => $post) {
+                if($post->tipo_post == 1){
+                    $link_post = '<a href="'.$post->conteudo_post.'" target="_blank" class="btn btn-primary-outline">Visualizar</a>';
+                }else if($post->tipo_post == 2){
+                    $link_post = '<a href="/v/'.$post->id_post.'/'.url_title($post->titulo_post).'" class="btn btn-primary-outline">Visualizar</a>';
+
+                }
+                $last_id = $post->id_post;
+                echo '<div class="widget">
+                                    <div class="widget-controls">
+                                         <a href="/editar/post/'.$post->id_post.'"><i class="fa fa-pencil-square-o fa-2x"></i> </a>
+                                        <a href="/remover/post/'.$post->id_post.'" id="remover_post" class="po" data-toggle="popover"><i class="fa fa-trash-o fa-2x"></i>
+                                            </i></a>
+                                    </div>
+                                    <div class="col-sm-12" id="featured">
+                                        <div class="page-header2 text-muted">
+                                            '.$post->nome_categoria.'
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-10">
+                                            <hr/>
+                                            <h3>'.$post->titulo_post.'</h3>
+
+                                            <h4>'.$link_post.'</h4>
+                                            <h4>
+
+                                                <p class="fs-mini text-muted"><time>25 mins</time> &nbsp; <i class="fa fa-map-marker"></i> &nbsp; near Amsterdam</p>
+
+                                            </h4>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <a href="/perfil/'.url_title($post->login_usuario).'/'.$post->id_usuario.'" class="pull-right" id="imagem_user"><img src="'.$post->imagem_usuario.'" class="img-thumbnail img-circle" >'.$post->login_usuario.'</a>
+                                        </div>
+                                    </div>
+                                 </div>';
+            }
+
+            if ($last_id != 0) {
+                echo '<script type="text/javascript">var last_id = '.$last_id.';</script>';
+                echo '<script type="text/javascript">var contador = '.count($dados).';</script>';
+
+            }
+            sleep(1);
+
+
+        }else{
+            redirect('/home');
+        }
+    }
+
     public function home(){
         $this->load->library('session');
         if($this->session->userdata('logged_in'))
@@ -166,7 +274,9 @@ class Usuario extends CI_Controller {
             $dados = $this->usuario_model->getbyid($id);
             foreach($dados as $row){
                 $data['nome_usuario'] = $row->login_usuario;
-                $data['imagem_usuario'] = $row->imagem_usuario;            }
+                $data['imagem_usuario'] = $row->imagem_usuario;
+                $data['id_usuario'] = $row->id_usuario;
+            }
 
             $data['posts']= $this->post_model->getByUser($id);
 
@@ -183,6 +293,7 @@ class Usuario extends CI_Controller {
     }
 
     public function editarPerfil(){
+        $this->load->helper(array('form'));
         $this->load->library('session');
         if($this->session->userdata('logged_in'))
         {
@@ -197,6 +308,7 @@ class Usuario extends CI_Controller {
                 $data['nome_completo_usuario'] = $row->nome_usuario;
                 $data['email_usuario'] = $row->email_usuario;
                 $data['descricao_usuario'] = $row->descricao_usuario;
+                $data['id_usuario'] = $row->id_usuario;
 
             }
 
@@ -228,9 +340,7 @@ class Usuario extends CI_Controller {
 
         if ($this->form_validation->run() == FALSE)
         {
-
             $this->load->view('site/index');
-
         }
         else
         {
@@ -244,11 +354,6 @@ class Usuario extends CI_Controller {
             $dado['ok'] = "ok";
             redirect('/home?ok=yes',$dado);
         }
-
-
-
-
-
     }
 
     public function logar()
@@ -306,7 +411,7 @@ class Usuario extends CI_Controller {
     }
 
     public function publicar(){
-
+        $this->load->helper(array('form'));
         $this->load->library('session');
         if($this->session->userdata('logged_in'))
         {
@@ -318,6 +423,7 @@ class Usuario extends CI_Controller {
             foreach($dados as $row){
                 $data['nome_usuario'] = $row->login_usuario;
                 $data['imagem_usuario'] = $row->imagem_usuario;
+                $data['id_usuario'] = $row->id_usuario;
             }
 
             $this->load->view('usuario/publicar',$data);
@@ -337,17 +443,54 @@ class Usuario extends CI_Controller {
         {
             $session_data = $this->session->userdata('logged_in');
             $id = $session_data['id'];
-            $data['titulo'] = $this->input->post('titulo');
-            $data['conteudo'] = $this->input->post('conteudo');
-            $data['id_categoria'] = $this->input->post('id_categoria');
-            $data['id_usuario'] = $id;
-            $data['data_post'] = date("Y-m-d", time());
-            $this->post_model->insert_post($data);
-            $dado['categorias'] = $this->categoria_model->get();
-            $dado['ok'] = "ok";
-            redirect('/publicar?ok=yes',$dado);
-        //$this->load->view('site/publicar',$dado);
-        // print $data['titulo'];
+
+            $data['tipo_post'] = $this->input->post('tipo');
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            if($data['tipo_post'] == 1){
+                $this->form_validation->set_rules('conteudo_link', 'Link do Conteudo', 'required|min_length[5]|max_length[80]');
+
+            }else{
+
+                $this->form_validation->set_rules('conteudo', 'Conteudo', 'required|min_length[5]');
+            }
+            $this->form_validation->set_rules('titulo', 'Titulo', 'required|min_length[5]|max_length[80]');
+
+            if ($this->form_validation->run() == FALSE)
+            {
+                $dados = $this->usuario_model->getbyid($id);
+                foreach($dados as $row) {
+                    $data['nome_usuario'] = $row->login_usuario;
+                    $data['imagem_usuario'] = $row->imagem_usuario;
+                }
+                $data['categorias'] = $this->categoria_model->get();
+                $data['tipo_p'] = $data['tipo_post'];
+                    $this->load->view('usuario/publicar',$data);
+
+            }
+            else {
+
+                $data['titulo'] = $this->input->post('titulo');
+
+                $data['id_categoria'] = $this->input->post('id_categoria');
+                $data['id_usuario'] = $id;
+                $data['data_post'] = date("Y-m-d", time());
+                $data['tipo_post'] = $this->input->post('tipo');
+
+                if($data['tipo_post'] == 1){
+                    $data['conteudo'] = $this->input->post('conteudo_link');
+
+                }else{
+                    $data['conteudo'] = $this->input->post('conteudo');
+                }
+
+                $this->post_model->insert_post($data);
+                $dado['categorias'] = $this->categoria_model->get();
+                $dado['ok'] = "ok";
+                redirect('/publicar?ok=yes',$dado);
+
+            }
+
         }
         else
             {
@@ -370,16 +513,26 @@ class Usuario extends CI_Controller {
             foreach($dados2 as $row){
                 $data['nome_usuario'] = $row->login_usuario;
                 $data['imagem_usuario'] = $row->imagem_usuario;
+                 $data['id_usuario'] = $row->id_usuario;
+
             }
 
-
-            foreach($dados as $row){
-                $data['nome_usuario_perfil'] = $row->login_usuario;
-                $data['imagem_usuario_perfil'] = $row->imagem_usuario;
-                $data['descricao_usuario_perfil'] = $row->descricao_usuario;
-                $data['email_usuario_perfil'] = $row->email_usuario;
-                $data['nome_completo_perfil']= $row->nome_usuario;
+            if($dados != null){
+                foreach($dados as $row){
+                    $data['nome_usuario_perfil'] = $row->login_usuario;
+                    $data['imagem_usuario_perfil'] = $row->imagem_usuario;
+                    $data['descricao_usuario_perfil'] = $row->descricao_usuario;
+                    $data['email_usuario_perfil'] = $row->email_usuario;
+                    $data['nome_completo_perfil']= $row->nome_usuario;
+                }
+            }else{
+                $data['nome_usuario_perfil'] = "";
+                $data['imagem_usuario_perfil'] = "/dist/img/perfil_default.png";
+                $data['descricao_usuario_perfil'] = "";
+                $data['email_usuario_perfil'] = "";
+                $data['nome_completo_perfil']="";
             }
+
 
             $this->load->helper('form');
             $this->load->view('usuario/perfil_usuario',$data);
@@ -400,12 +553,7 @@ class Usuario extends CI_Controller {
         redirect('/', 'refresh');
     }
 
-    public function teste($id){
-
-        print $id;
-    }
-
-public function ajax_upload($t,$img,$w,$h,$x1,$y1){
+    public function ajax_upload($t,$img,$w,$h,$x1,$y1){
 
     $this->load->library('session');
     if($this->session->userdata('logged_in')) {
@@ -438,7 +586,6 @@ public function ajax_upload($t,$img,$w,$h,$x1,$y1){
         }
 
     }
-
 
     public function upload(){
 
@@ -509,7 +656,181 @@ public function ajax_upload($t,$img,$w,$h,$x1,$y1){
       */
     }
 
+    public function visualizarPost($id_post,$titulo_post){
+        $this->load->library('session');
+        if($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            $id = $session_data['id'];
+            $dados = $this->usuario_model->getbyid($id);
+            foreach($dados as $row){
+                $data['nome_usuario'] = $row->login_usuario;
+                $data['imagem_usuario'] = $row->imagem_usuario;
+                $data['id_usuario'] = $row->id_usuario;
+            }
+            $data['post'] = $this->post_model->getPostId($id_post);
+            if($data['post'] == null) $this->erro();
+            $this->load->view('usuario/visualizar_post',$data);
+        }
+        else redirect('login', 'refresh');
+    }
 
+    public function editar_post($id_post){
+        $this->load->helper(array('form'));
+        $this->load->library('session');
+        if($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            $id = $session_data['id'];
+            $dados = $this->usuario_model->getbyid($id);
+            foreach($dados as $row){
+                $data['nome_usuario'] = $row->login_usuario;
+                $data['imagem_usuario'] = $row->imagem_usuario;
+                $data['id_usuario'] = $row->id_usuario;
+            }
+            $data['categorias'] = $this->categoria_model->get();
+            $data['post'] = $this->post_model->getPostId($id_post);
+            if($data['post'] == null) $this->erro();
+            else $this->load->view('usuario/editar_post',$data);
+        }else redirect('login', 'refresh');
+    }
+
+    public function removerPost($id){
+        $this->load->library('session');
+        if($this->session->userdata('logged_in')) {
+            $this->post_model->remover_post($id);
+            redirect('/mylinks', 'refresh');
+        }else redirect('login', 'refresh');
+    }
+
+    public function atualizarPost(){
+        $this->load->helper('date');
+        $this->load->library('session');
+        if($this->session->userdata('logged_in'))
+        {
+            $session_data = $this->session->userdata('logged_in');
+            $id = $session_data['id'];
+
+            $data['tipo_post'] = $this->input->post('tipo');
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            if($data['tipo_post'] == 1){
+                $this->form_validation->set_rules('conteudo_link', 'Link do Conteudo', 'required|min_length[5]|max_length[80]');
+
+            }else{
+
+                $this->form_validation->set_rules('conteudo', 'Conteudo', 'required|min_length[5]');
+            }
+            $this->form_validation->set_rules('titulo', 'Titulo', 'required|min_length[5]|max_length[80]');
+
+            if ($this->form_validation->run() == FALSE)
+            {
+                $dados = $this->usuario_model->getbyid($id);
+                foreach($dados as $row) {
+                    $data['nome_usuario'] = $row->login_usuario;
+                    $data['imagem_usuario'] = $row->imagem_usuario;
+                    $data['id_usuario'] = $row->id_usuario;
+                }
+                $data['categorias'] = $this->categoria_model->get();
+                $data['tipo_p'] = $data['tipo_post'];
+                $data['post'] = $this->post_model->getPostId($this->input->post('post'));
+                $this->load->view('usuario/editar_post',$data);
+
+            }else {
+                $data['titulo_post'] = $this->input->post('titulo');
+                $data['id_post'] = $this->input->post('post');
+                $data['id_categoria_post'] = $this->input->post('id_categoria');
+                $data['id_usuario_post'] = $id;
+                $data['data_post'] = date("Y-m-d", time());
+                $data['tipo_post'] = $this->input->post('tipo');
+
+                if ($data['tipo_post'] == 1) {
+                    $data['conteudo_post'] = $this->input->post('conteudo_link');
+
+                } else {
+                    $data['conteudo_post'] = $this->input->post('conteudo');
+                }
+
+                $this->post_model->update_post($data);
+                $dado['categorias'] = $this->categoria_model->get();
+                $dado['ok'] = "ok";
+                redirect('/editar/post/' . $data['id_post'] . '?ok=yes', $dado);
+            }
+
+        }
+        else
+        {
+            //If no session, redirect to login page
+            redirect('login', 'refresh');
+        }
+
+
+    }
+
+    public function atualizarConta(){
+        $this->load->helper('date');
+        $this->load->library('session');
+        if($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            $id = $session_data['id'];
+            $this->load->library('form_validation');
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            $this->form_validation->set_rules('nome_usuario', 'Nome', 'required|min_length[5]|max_length[80]');
+            $this->form_validation->set_rules('login_usuario_cad', 'Login', 'required|min_length[5]|max_length[20]');
+            $this->form_validation->set_rules('senha_usuario_cad','Senha','required|min_length[5]|max_length[32]');
+            $this->form_validation->set_rules('email_usuario', 'Email', 'required|valid_email');
+
+            if ($this->form_validation->run() == FALSE)
+            {
+                $dados = $this->usuario_model->getbyid($id);
+                foreach($dados as $row){
+                    $data['nome_usuario'] = $row->login_usuario;
+                    $data['imagem_usuario'] = $row->imagem_usuario;
+                    $data['nome_completo_usuario'] = $row->nome_usuario;
+                    $data['email_usuario'] = $row->email_usuario;
+                    $data['descricao_usuario'] = $row->descricao_usuario;
+                    $data['id_usuario'] = $row->id_usuario;
+
+                }
+                $data['categorias'] = $this->categoria_model->get();
+                $this->load->view('usuario/editar_conta',$data);
+
+            }
+            else
+            {
+                $data['id_usuario'] = $id;
+                $data['nome_usuario'] = $this->input->post('nome_usuario');
+                $data['login_usuario'] = $this->input->post('login_usuario_cad');
+                $data['descricao_usuario'] = $this->input->post('descricao_usuario');
+                $data['senha_usuario'] = MD5($this->input->post('senha_usuario_cad'));
+                $data['email_usuario'] = $this->input->post('email_usuario');
+
+                $this->usuario_model->update_usuario($data);
+                $dado['ok'] = "ok";
+                redirect('editar/perfil/?ok=yes');
+            }
+        }else{
+            redirect('/');
+        }
+
+    }
+
+    public function erro(){
+        $this->load->helper('date');
+        $this->load->library('session');
+        if($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            $id = $session_data['id'];
+            $dados = $this->usuario_model->getbyid($id);
+            foreach($dados as $row){
+                $data['nome_usuario'] = $row->login_usuario;
+                $data['imagem_usuario'] = $row->imagem_usuario;
+                $data['id_usuario'] = $row->id_usuario;
+            }
+            $this->load->view('erros/pagina_nao_encontrada',$data);
+
+        }else{
+            redirect('/');
+        }
+    }
 
 
 }

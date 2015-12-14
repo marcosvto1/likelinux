@@ -66,13 +66,19 @@ $this->date     = time();*/
 $this->db->insert('tb_usuario', $data);
 }
 
-public function update_entry()
+public function update_usuario($data)
 {
-$this->title    = $_POST['title'];
-$this->content  = $_POST['content'];
-$this->date     = time();
+//$this->nome_usuario = $data['nome_usuario'];
 
-$this->db->update('entries', $this, array('id' => $_POST['id']));
+ /*   public $id_usuario;
+    public $nome_usuario;
+    public $login_usuario;
+    public $descricao_usuario;
+    public $senha_usuario;
+    public $email_usuario;
+    public $imagem_usuario;*/
+
+    $this->db->update('tb_usuario', $data, array('id_usuario' => $data['id_usuario']));
 }
     public function updateImgID($id,$img){
 

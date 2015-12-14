@@ -55,7 +55,8 @@ $route['translate_uri_dashes'] = FALSE;
 $route['contato/listar'] = 'contato/getContato';
 $route['home'] = 'site/index';
 $route['filter/(:num)'] = 'site/filterCategoria/$1';
-$route['listagem/post'] = 'site/getPostAll';
+//$route['listagem/post'] = 'site/getPostAll';
+$route['listagem/post'] = 'site/getPostAllPagination';
 $route['global_links'] = 'site/globalPost';
 
 $route['agenda'] = 'site/agenda';
@@ -67,10 +68,33 @@ $route['login'] = 'site';
 $route['cadastro'] = 'usuario/cadastro';
 $route['cadastrar/insert'] = 'usuario/cadastrar';
 $route['login/auth'] = 'usuario/logar';
-$route['filter/user/(:num)'] = 'usuario/getPostFilterByUser/$1';
+
 $route['editar/perfil'] = 'usuario/editarPerfil';
 $route['publicar'] = 'usuario/publicar';
 $route['publicar/post'] = 'usuario/publicar_post';
+
+/*atualizar perfil*/
+
+$route['editar/perfil/update'] = 'usuario/atualizarConta';
+
+/* visualizar post */
+$route['v/(:num)/(:any)']= 'usuario/visualizarPost/$1/$2';
+/* Editar post */
+$route['editar/post/(:num)']= 'usuario/editar_post/$1';
+/* filtrar post por categoria */
+
+/*$route['filter/post/(:num)'] = 'usuario/getPostFilterCategoriaPagination/$1';*/
+$route['filter/user/(:num)'] = 'usuario/getPostFilterCategoriaPagination/$1';
+// aux 'usuario/getPostFilterByUser/$1';
+
+
+/* Atualizar post */
+
+$route['atualizar/post'] = 'usuario/atualizarPost';
+
+
+/* Remover Post */
+$route['remover/post/(:num)'] = 'usuario/removerPost/$1';
 
 
 /* listagem de post */
@@ -87,3 +111,10 @@ $route['foto/upload'] = 'usuario/upload';
 
 $route['perfil/(:any)/(:num)'] = 'usuario/exibirPerfil/$1/$2';
 $route['logout'] = 'usuario/logout';
+
+/* Paginas de Erros */
+
+$route['page/error'] = 'usuario/erro';
+
+// teste
+$route['teste'] = 'usuario/teste';

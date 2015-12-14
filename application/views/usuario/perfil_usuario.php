@@ -1,129 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
-
-    <title>Like Linux</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/dist/css/bootstrap.min.css" rel="stylesheet">
+<?php  $this->load->view('template/topo'); ?>
+<!--  fim topo -->
 
 
-    <!-- Custom styles for this template -->
-    <link href="/dist/css/style.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-    <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,600' rel='stylesheet' type='text/css'>
-
-</head>
-
-<body>
-
-<!-- nav -->
-
-<?php include '/home/u102884618/public_html/application/views/usuario/nav.php'; ?>
-<!-- /nav -->
-
-<!-- Main jumbotron for a primary marketing message or call to action -->
-
-
+<!-- conteudo principal -->
 <div class="container" id="box-main">
 
     <div class="row">
+        <!-- menu -->
+        <div class="col-md-2" id="box-profile">
+            <!-- sidebar -->
+            <?php  $this->load->view('template/menu'); ?>
+            <!-- /sidebar -->
+        </div>
+        <!-- fim menu -->
 
-
-
-
-
+        <!-- conteudo de post -->
         <div class="col-md-10">
-
             <div class="row">
-                <!-- sidebar -->
-                <?php include '/home/u102884618/public_html/application/views/usuario/menu.php'; ?>
-                <!-- /sidebar -->
-
                 <!-- main -->
+                <div class="column col-sm-12" id="main">
 
-                <div class="column col-sm-9" id="main">
-                    <div class="padding">
-                        <div class="full col-sm-9">
-                            <div class="box-conteudo">
-                                <!-- content -->
+                    <div class="full col-sm-12">
 
+                        <div id="conteudo-main">
 
-
-                                <!--/top story-->
-                                <div class="row">
-                                    <div class="col-sm-10">
-
-                                        <center>
-                                            <img src="<?php print $imagem_usuario_perfil;?>" class="img-circle"></a>
-                                            <h3 class="media-heading">@<?php print $nome_usuario_perfil; ?> <small></small></h3>
-                                            <span><strong>Nome Completo: </strong></span>
-                                            <span class="label label-warning"><?php print $nome_completo_perfil; ?></span>
-
-                                        </center>
-                                        <hr>
-                                        <center>
-                                            <p class="text-left"><strong>Descrição: </strong>
-                                                <?php print $descricao_usuario_perfil;?></p>
-
-                                            <p class="text-left"><strong>Email: </strong>
-                                            <?php print $email_usuario_perfil;?></p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <center>
-                                          <!--  <button type="button" class="btn btn-default" data-dismiss="modal">I've heard enough about Joe</button>         -->
-                                        </center>
-                                    </div>
-                                </div>
-
-
-
-
-                                        <br>
+                            <div class="row">
+                                <div class="col-md-4">   <a class="logo" href="#"><img class="img-thumbnail img-square" src="<?php print $imagem_usuario_perfil; ?>" ></a></div>
+                                <div class="col-md-8">
+                                    <div class="span8">
+                                        <h3><?php print $nome_completo_perfil;?></h3>
+                                        <h6>Email:<?php print $email_usuario_perfil?></h6>
+                                        <h6>Descrição: <?php print $descricao_usuario_perfil?></h6>
+                                       <!-- <h6>Old: 1 Year</h6>
+                                        <h6><a href="#">More... </a></h6> -->
                                     </div>
 
                                 </div>
 
+                            </div>
+                            <!-- <div class="loader"><img src="/dist/img/loading.GIF"></div>-->
 
 
 
 
-                            </div><!-- /col-9 -->
-                        </div> <!-- box conteudo -->
-                    </div><!-- /padding -->
-                </div>
 
 
-            </div>
+                        </div>
+
+                        <!-- loadind -->
+                        <div class="col-sm-12">
+                            <p id="loader">
+                                <!--<img src="/dist/img/ajax-loader.gif">-->
+                                <img src="/dist/img/loadinghori.GIF" align="center">
+                            </p>
+                            <br/>
+                        </div>
+
+                    </div><!-- /col-9 -->
+
+                </div> <!--  fim main -->
+
+            </div> <!-- fim row -->
 
         </div>
+        <!-- fim conteudo de post -->
 
 
+        <!-- categorias -->
 
-
+        <!-- fim categorias -->
     </div>
 
-    <!--    <footer>
-        <p>&copy; TrampoFacil 2015</p>
-    </footer> -->
-</div> <!-- /container -->
+    <footer>
+    </footer>
+</div>
+<!-- /container -->
 
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+
 <script src="/dist/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('.po').popover({
+            container: 'body'
+        })
+
+    })
+
+</script>
 </body>
 </html>
