@@ -56,8 +56,11 @@
 
                                             <h4><?php print $link_post; ?></h4>
                                             <h4>
+
+                                                <hr/>
                                                 <!--<h4><span class="label label-default"><a href="http://blog.hostdime.com.br/materias/tecnologia/varnish-cache-o-que-e-e-como-implementa-lo/">visualizar conteudo</a></span></h4><h4>-->
-                                                <p class="fs-mini text-muted"><time>25 mins</time> &nbsp; <i class="fa fa-map-marker"></i> &nbsp; near Amsterdam</p>
+                                                <p class="fs-mini text-muted"><time><a>Add </a></time> &nbsp; <i class="fa fa-map-marker"></i> 4555
+                                                <i class="fa fa-map-marker"></i> Publico</p>
 
                                                 <!--<small class="text-muted" id="box-horas">1 hora agosto • <a href="#" class="text-muted">Mais Informação</a></small> -->
                                             </h4>

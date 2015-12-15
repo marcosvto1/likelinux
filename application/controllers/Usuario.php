@@ -832,5 +832,23 @@ class Usuario extends CI_Controller {
         }
     }
 
+    public function getGrupos(){
+        $this->load->helper('date');
+        $this->load->library('session');
+        if($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            $id = $session_data['id'];
+            $dados = $this->usuario_model->getbyid($id);
+            foreach($dados as $row){
+                $data['nome_usuario'] = $row->login_usuario;
+                $data['imagem_usuario'] = $row->imagem_usuario;
+                $data['id_usuario'] = $row->id_usuario;
+            }
+            $this->load->view('usuario/meus_grupo',$data);
+
+        }else{
+            redirect('/');
+        }
+    }
 
 }

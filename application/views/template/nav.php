@@ -22,8 +22,22 @@
             <button class="btn btn-success-outline" type="submit">Buscar</button>
         </form>
 
-        <form class="form-inline navbar-form pull-right" style="" action="/logout">
+      <!--  <form class="form-inline navbar-form pull-right" style="" action="/logout">
             <button class="btn btn-warning-outline" type="submit">Sair</button>
-        </form>
+        </form> -->
+
+        <ul class="nav navbar-nav">
+
+            <li class="nav-item dropdown pull-right">
+                <a href="#" class="btn btn-warning-outline dropdown-toggle" id="link_menu" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-user"></i>
+                    Minha Conta <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li> <a class="dropdown-item" href="/editar/perfil">Configuraçoes de Conta</a></li>
+                    <li> <a class="dropdown-item" href="/logout">Sair</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </nav>

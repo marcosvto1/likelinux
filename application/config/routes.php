@@ -118,3 +118,7 @@ $route['page/error'] = 'usuario/erro';
 
 // teste
 $route['teste'] = 'usuario/teste';
+
+/* grupos */
+
+$route['listar/grupos'] = 'usuario/getGrupos';

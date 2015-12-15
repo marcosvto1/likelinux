@@ -44,6 +44,10 @@
                                                 <a class="nav-link active" href="#profile" role="tab" data-toggle="tab">Perfil</a>
                                             </li>
                                             <li class="nav-item">
+                                                <a class="nav-link" href="#seguranca" role="tab" data-toggle="tab">Segurança</a>
+                                            </li>
+
+                                            <li class="nav-item">
                                                 <a class="nav-link" href="#imagem" role="tab" data-toggle="tab">Imagem Perfil</a>
                                             </li>
 
@@ -90,6 +94,30 @@
 
 
                                             </div>
+
+
+                                            <div role="tabpanel" class="tab-pane active" id="seguranca">
+                                                <br/>
+                                                <?php echo form_open('editar/perfil/update/ssss'); ?>
+                                                <!-- <form method="post" action="/cadastrar/insert">-->
+
+                                                <fieldset class="form-group">
+                                                    <label for="exampleSelect1">Senha</label>
+                                                    <input type="password" name="senha_usuario_cad" class="form-control" id="exampleInputPassword1" placeholder="Sua Senha" >
+                                                    <?php echo form_error('senha_usuario_cad'); ?>
+                                                </fieldset>
+
+                                                <button type="submit" name="submit"  class="btn btn-primary">Atualizar</button>
+                                                </form>
+                                                <br/>
+
+
+                                            </div>
+
+
+
+
+
                                             <div role="tabpanel" class="tab-pane" id="imagem">
 
 

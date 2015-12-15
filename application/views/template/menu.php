@@ -19,7 +19,13 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="/editar/perfil">Minha Conta</a>                    </li>
+            <a class="nav-link" href="/listar/grupos">Meus Grupos</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="/editar/perfil">Minha Conta</a>
+        </li>
+
 
 
 
