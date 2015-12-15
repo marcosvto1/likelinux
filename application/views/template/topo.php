@@ -15,11 +15,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/dist/css/style.css" rel="stylesheet">
+
+    <link href="/dist/footables/css/footable-0.1.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/footables/css/footable.sortable-0.1.css" rel="stylesheet" type="text/css" />
+    <link href="/dist/footables/css/footable.paginate.css" rel="stylesheet" type="text/css" />
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <link href="http://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,400italic,600' rel='stylesheet' type='text/css'>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
     <style>
 
 

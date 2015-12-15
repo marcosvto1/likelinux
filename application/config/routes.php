@@ -122,3 +122,4 @@ $route['teste'] = 'usuario/teste';
 /* grupos */
 
 $route['listar/grupos'] = 'usuario/getGrupos';
+$route['grupo/(:num)/(:any)'] = 'usuario/visualizarGrupo/$1/$2';

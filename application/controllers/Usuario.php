@@ -851,4 +851,39 @@ class Usuario extends CI_Controller {
         }
     }
 
+    public function visualizarGrupo($id,$nome){
+
+       // $string = str_replace("-", " ", $nome);
+
+      //  print $id."".$string;
+        $this->load->library('session');
+        if($this->session->userdata('logged_in'))
+        {
+            $session_data = $this->session->userdata('logged_in');
+            $id = $session_data['id'];
+            $data['categorias'] = $this->categoria_model->getCategoriaByUsuario($id);
+            $dados = $this->usuario_model->getbyid($id);
+            foreach($dados as $row){
+                $data['nome_usuario'] = $row->login_usuario;
+                $data['imagem_usuario'] = $row->imagem_usuario;
+                $data['id_usuario'] = $row->id_usuario;
+            }
+
+            $data['posts']= $this->post_model->getByUser($id);
+
+
+
+            $this->load->view('usuario/grupo', $data);
+            ///print "sexo";
+        }
+        else
+        {
+            //If no session, redirect to login page
+            redirect('login', 'refresh');
+        }
+
+
+
+    }
+
 }
