@@ -46,7 +46,7 @@
                                         <br/> <br/>
 
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
 
                                     <table data-filter="#filter" class="table" data-page-size="5">
                                         <thead>
@@ -64,13 +64,16 @@
 -->
                                         </thead>
                                         <tbody>
+
+                                        <?php foreach($grupos_user as $key => $grupo) {?>
                                         <tr>
-                                            <td><a  href="/grupo/12/<?php print url_title("Centro de Recurso Computacional"); ?>">Cercomp</a></td>
+                                            <td><a  href="/grupo/<?php print $grupo->id_grupo; ?>/<?php print url_title($grupo->nome_grupo); ?>"><?php print $grupo->nome_grupo; ?></a></td>
                                             <td> <a href="/remover/post/#" id="remover_post" class="po" data-toggle="popover"><i class="fa fa-trash-o fa-2x"></i>
                                                     </i></a></td>
                                         </tr>
 
-                                        <tr>
+                                        <?php } ?>
+                                      <!--  <tr>
                                             <td><a href="#">ZUeraMiliegraus</a></td>
                                             <td> <a href="/remover/post/#" id="remover_post" class="po" data-toggle="popover"><i class="fa fa-trash-o fa-2x"></i>
                                                     </i></a></td>
@@ -97,7 +100,7 @@
                                             <td> <a href="/remover/post/#" id="remover_post" class="po" data-toggle="popover"><i class="fa fa-trash-o fa-2x"></i>
                                                     </i></a></td>
                                         </tr>
-
+-->
                                         </tbody>
                                     </table>
                                             </div>
