@@ -13,9 +13,10 @@ class Grupo_model extends CI_Model {
 
     public function getUsuarios($id_grupo){
 
-       $sql ='SELECT *
-              FROM tb_usuarios_grupo B ,tb_grupo A
-              WHERE A.id_grupo = B.
+       $sql ='SELECT C.id_usuario, C.nome_usuario
+              FROM tb_usuarios_grupo B ,tb_grupo A, tb_usuario C
+              WHERE A.id_grupo = B.id_grupo
+              AND B.id_usuario = C.id_usuario
               AND A.id_grupo = ?';
         $query = $this->db->query($sql,array($id_grupo));
         return $query->result();
@@ -34,7 +35,7 @@ class Grupo_model extends CI_Model {
 
     public function getGruposUser($id)
     {
-        $sql ='SELECT A.id_grupo, A.nome_grupo
+        $sql ='SELECT DISTINCT A.id_grupo, A.nome_grupo
               FROM tb_grupo A
               INNER JOIN tb_usuarios_grupo B
               ON (A.id_grupo = B.id_grupo AND B.id_usuario = ?) OR (A.id_grupo = B.id_grupo AND A.id_usuario_admin = ?)
