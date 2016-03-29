@@ -37,7 +37,24 @@ return $query->result();
     }
 
 
-public function login($login, $senha)
+    public function getUsuarioNoGrupo($id)
+    {
+
+        $sql = '
+                    SELECT A.id_usuario, A.login_usuario
+                    FROM tb_usuario A
+                    LEFT JOIN tb_usuarios_grupo B
+                    on B.id_usuario = A.id_usuario
+                    WHERE B.id_usuario is null ';
+
+        $query = $this->db->query($sql,array($id));
+//$query = $this->db->get('contatos');
+        return $query->result();
+    }
+
+
+
+    public function login($login, $senha)
 {
     $this->db->select('id_usuario');
     $this->db->select('login_usuario');

@@ -94,6 +94,30 @@
                                         </select>
                                     </fieldset>
 
+                                    <fieldset class="form-group">
+                                        <a class="btn btn-primary"  data-toggle="modal" data-target="#myModal">Compatilhar com Grupos</a>
+                                        <a class="btn btn-danger" id="remover-row">Remover Grupos</a>
+                                        <hr/>
+                                        <div id="tabela">
+                                            <table id="tabela_grupo" class="table">
+
+                                                <tbody id="corpo">
+                                                    <div id="conteudot">
+
+                                                    </div>
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </fieldset>
+
+                                    <div id="grupos">
+
+
+                                    </div>
+
+
 
 
                                     <button type="submit" class="btn btn-primary">Publicar</button>
@@ -113,13 +137,43 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form id="add-grupo-from" action="#">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Adicionar Grupo</h4>
+                </div>
+                <div class="modal-body">
 
+                    <fieldset class="form-group">
+                        <label for="exampleSelect1">Selecione o Grupo</label>
+                        <select class="form-control" id="grupo" name="id_grupo">
+                            <?php foreach($grupos_user as $key => $grupo) {?>
+                                <option value="<?php print $grupo->id_grupo; ?>"><?php print $grupo->nome_grupo; ?></option>
+                            <?php }?>
+
+                        </select>
+                    </fieldset>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <a  id="add-grupo" class="btn btn-primary" > Adicionar</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="/dist/js/bootstrap.min.js"></script>
+<?php  $this->load->view('template/jsinclude'); ?>
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="/dist/ckeditor/ckeditor.js"></script>
@@ -158,11 +212,108 @@
     );
 
 
+    $('#remover-row').click(function(e){
+        e.preventDefault();
+      // alert('sss');
+        var linhas = document.getElementById("tabela_grupo").rows;
+        var i = linhas.length-1;
+       // alert(i);var i = 0;
+        for (i= linhas.length-1; i >=0; i--){
+            document.getElementById("tabela_grupo").deleteRow(i);
+        }
+
+        $('#grupos').empty();
+        grupos = [];
+
+    });
+
+  /*(function($) {
+
+        RemoveTableRow = function(handler) {
+            var tr = $(handler).closest('tr');
+
+            alert(jQuery(this).attr("data-url"));
+            tr.fadeOut(400, function(){
+                tr.remove();
+              //  grupos.pop();
+            });
+
+            return false;
+        };
+    })(jQuery);*/
+
+
+
+    var cont =1;
+    var grupos = [];
+
+    /*function clearTable(_idTab, _linhaPersistente){
+        var linhas = document.getElementById(_idTab).rows;
+        var i = 0;
+        for (i= linhas.length-1; i&gt;=0; i--){
+            //alert(linhas[i].innerHTML);
+            if (i != (_linhaPersistente-1) ){
+                document.getElementById(_idTab).deleteRow(i);
+            }
+        }
+    }
+*/
+
+
+$('#add-grupo').click(function(e){
+
+    var id_grupo = $("#grupo").val();
+    var nome_grupo = $( "#grupo option:selected" ).text();
+
+    if(id_grupo == '' && nome_grupo == ''){
+        return false;
+    }
+
+
+    /*if(cont == 1 ){
+        grupos.push(nome_grupo);
+        cont = cont + 1;
+    }*/
+    if(jQuery.inArray(nome_grupo,grupos) == -1){
+        //alert(jQuery.inArray(nome_grupo,grupos));
+       // $("#tabela").append(nome_grupo+'<br/>');
+        var newRow = $("<tr>");
+        var cols = "";
+
+        var s = ""+nome_grupo;
+
+        cols += '<td>'+nome_grupo+'</td>';
+
+        cols += '<td>';
+       // cols += '<a href="#" data-url="tesste" class="remover_row" type="button"><i class="fa fa-trash-o fa-2x"></i></a>';
+        cols += '</td>';
+
+        newRow.append(cols);
+        $("#tabela_grupo").append(newRow);
+        $("#grupos").append('<input type="hidden" name="grupos[]" value="'+id_grupo+'">');
+        grupos.push(nome_grupo);
+        return false;
+    }else{
+
+
+    }
+
+
+
+  //  for()
+
+
+    return true;
+});
+
 
 
 
 </script>
 <script>
+
+
+
     window.onload = function()  {
         //CKEDITOR.replace( 'editor' );
 

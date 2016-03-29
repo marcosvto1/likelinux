@@ -47,7 +47,7 @@
                                     <div class="col-md-12">
                                         <div class="widget">
                                             <br/>
-                                            <a class="btn btn-primary" href="/grupo/<?php print $id_grupo;?>/<?php print url_title($nome_grupo)?>/participante/add" >Adicionar Pessoa</a><hr/>
+                                            <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#myModal">Adicionar Pessoa</button><hr/>
                                             Buscar:&nbsp<input id="filter" type="text" /><a href="#clear" class="clear-filter" title="clear filter"></a>
                                             <br/> <br/>
 
@@ -74,7 +74,7 @@
                                                         <?php foreach($grupos_user as $key => $user) {?>
                                                             <tr>
                                                                 <td><a  href="#"><?php print $user->login_usuario; ?></a></td>
-                                                                <td> <a href="/remover/post/#" id="remover_post" class="po" data-toggle="popover"><i class="fa fa-trash-o fa-2x"></i>
+                                                                <td> <a href="/remover/post/#" class="po" data-toggle="popover">Adicionar
                                                                         </i></a></td>
                                                             </tr>
 
@@ -145,49 +145,49 @@
 
 
 
-                </div> <!--  fim main -->
+            </div> <!--  fim main -->
 
-            </div> <!-- fim row -->
+        </div> <!-- fim row -->
 
-        </div>
-        <!-- fim conteudo de post -->
-
-
-        <!-- categorias -->
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <form action="#">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">Criar Grupo</h4>
-                        </div>
-                        <div class="modal-body">
-
-                            <fieldset class="form-group">
-                                <label for="formGroupExampleInput">Nome do Grupo</label>
-                                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="">
-                            </fieldset>
+    </div>
+    <!-- fim conteudo de post -->
 
 
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" >Criar</button>
-                        </div>
+    <!-- categorias -->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form action="#">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Criar Grupo</h4>
                     </div>
-                </form>
-            </div>
-        </div>
+                    <div class="modal-body">
 
-        <!-- fim categorias -->
+                        <fieldset class="form-group">
+                            <label for="formGroupExampleInput">Nome do Grupo</label>
+                            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="">
+                        </fieldset>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" >Criar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <footer>
-    </footer>
+    <!-- fim categorias -->
+</div>
+
+<footer>
+</footer>
 </div>
 <!-- /container -->
 

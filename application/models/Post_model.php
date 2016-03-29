@@ -175,6 +175,13 @@ class Post_model extends CI_Model {
         $this->db->insert('tb_post', $this);
     }
 
+    public function find_ultimo(){
+
+        $sql = "SELECT MAX(id_post) FROM tb_post";
+        $query = $this->db->query($sql);
+        return $query->result();
+    }
+
     public function update_post($data)
     {
         $this->titulo_post   = $data['titulo_post']; // please read tue below note

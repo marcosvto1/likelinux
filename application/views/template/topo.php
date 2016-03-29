@@ -15,7 +15,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="/dist/css/bootstrap.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="/dist/css/style.css" rel="stylesheet">
-
+    <link href="/dist/css/grupo.css" rel="stylesheet">
     <link href="/dist/footables/css/footable-0.1.css" rel="stylesheet" type="text/css" />
     <link href="/dist/footables/css/footable.sortable-0.1.css" rel="stylesheet" type="text/css" />
     <link href="/dist/footables/css/footable.paginate.css" rel="stylesheet" type="text/css" />

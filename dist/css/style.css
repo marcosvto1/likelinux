@@ -79,7 +79,7 @@ a {
 #main {
     /*background-color:#fefefe;*/
    /* background-color: rgba(244, 244, 244, 0.85);*/
-    background-color: rgba(235, 235, 235, 0.85);
+    background-color: rgba(241, 241, 241, 0.85);
     padding: 30px;
 }
 #main .img-circle {
@@ -313,4 +313,18 @@ small.text-muted {
 
 .fs-mini {
     font-size: 13px;
+}
+
+#main-menu{
+    background: #fafafa;
+
+    border-radius: 3px;
+
+    border-image: none;
+     padding: 4px;
+    border-bottom:1px solid #E5E6E9;
+    -webkit-box-shadow: 8px 11px 6px -13px rgba(107, 107, 107, 1);
+    -moz-box-shadow: 8px 11px 6px -13px rgba(107, 107, 107, 1);
+    box-shadow: 8px 11px 6px -13px rgba(107, 107, 107, 1);
+
 }

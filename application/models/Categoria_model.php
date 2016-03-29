@@ -27,7 +27,16 @@ $query = $this->db->get('tb_categoria');
         $query = $this->db->query($sql,array($id));
         return $query->result();
     }
-
+    public function getCategoriaByGrupo($id){
+        $sql = "SELECT DISTINCT B.nome_categoria, B.id_categoria
+               FROM tb_usuario A , tb_categoria B , tb_post C, tb_grupo_post D
+               WHERE C.id_categoria_post = B.id_categoria
+               AND D.id_post = C.id_post
+               AND D.id_grupo = ?
+              ";
+        $query = $this->db->query($sql,array($id));
+        return $query->result();
+    }
     public function insert_entry()
     {
         $this->title    = $_POST['title']; // please read the below note

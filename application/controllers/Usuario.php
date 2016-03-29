@@ -9,10 +9,13 @@ class Usuario extends CI_Controller {
         parent::__construct();
         //$this->load->model('agenda_model');
         //$this->load->model('cobertura_model');
-        // $this->load->helper('date');
-        $this->load->model('post_model');
+        // $this->load->helper('date');upo
         $this->load->model('usuario_model');
         $this->load->model('categoria_model');
+        $this->load->model('postgrupo_model');
+        $this->load->model('solicitacao_model');
+        $this->load->model('grupo_model');
+        $this->load->model('post_model');
         $this->load->helper('html');
         $this->load->helper('url');
        // $this->load->model('form_model');
@@ -277,7 +280,7 @@ class Usuario extends CI_Controller {
                 $data['imagem_usuario'] = $row->imagem_usuario;
                 $data['id_usuario'] = $row->id_usuario;
             }
-
+            $data['solicitacao'] = count($this->solicitacao_model->get($id));
             $data['posts']= $this->post_model->getByUser($id);
 
 
@@ -311,6 +314,7 @@ class Usuario extends CI_Controller {
                 $data['id_usuario'] = $row->id_usuario;
 
             }
+            $data['solicitacao'] = count($this->solicitacao_model->get($id));
 
             $this->load->helper('form');
             $this->load->view('usuario/editar_conta',$data);
@@ -425,7 +429,8 @@ class Usuario extends CI_Controller {
                 $data['imagem_usuario'] = $row->imagem_usuario;
                 $data['id_usuario'] = $row->id_usuario;
             }
-
+            $data['solicitacao'] = count($this->solicitacao_model->get($id));
+            $data['grupos_user'] = $this->grupo_model->getGruposUser($id);
             $this->load->view('usuario/publicar',$data);
             ///print "sexo";
         }
@@ -446,6 +451,7 @@ class Usuario extends CI_Controller {
 
             $data['tipo_post'] = $this->input->post('tipo');
             $this->load->library('form_validation');
+            $data['solicitacao'] = count($this->solicitacao_model->get($id));
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if($data['tipo_post'] == 1){
                 $this->form_validation->set_rules('conteudo_link', 'Link do Conteudo', 'required|min_length[5]|max_length[80]');
@@ -462,9 +468,11 @@ class Usuario extends CI_Controller {
                 foreach($dados as $row) {
                     $data['nome_usuario'] = $row->login_usuario;
                     $data['imagem_usuario'] = $row->imagem_usuario;
+                    $data['id_usuario'] = $row->id_usuario;
                 }
                 $data['categorias'] = $this->categoria_model->get();
                 $data['tipo_p'] = $data['tipo_post'];
+
                     $this->load->view('usuario/publicar',$data);
 
             }
@@ -487,7 +495,24 @@ class Usuario extends CI_Controller {
                 $this->post_model->insert_post($data);
                 $dado['categorias'] = $this->categoria_model->get();
                 $dado['ok'] = "ok";
-                redirect('/publicar?ok=yes',$dado);
+                $id_ultimo = $this->post_model->find_ultimo();
+                $array = json_decode(json_encode($id_ultimo),true);
+                $dd = $array[0];
+                $grupos = $this->input->post('grupos');
+                foreach ($dd as $key => $value) {
+                    $id_ultimo = $value;
+                }
+                if(!is_null($grupos)) {
+                    for ($i = 0; $i < count($grupos); $i++) {
+                        $id_grupo = $grupos[$i];
+                        $d['id_post'] = $id_ultimo;
+                        $this->postgrupo_model->insert_post($id_grupo, intval($id_ultimo));
+
+                    }
+                }
+                    redirect('/publicar?ok=yes', $dado);
+
+
 
             }
 
@@ -516,6 +541,7 @@ class Usuario extends CI_Controller {
                  $data['id_usuario'] = $row->id_usuario;
 
             }
+            $data['solicitacao'] = count($this->solicitacao_model->get($id));
 
             if($dados != null){
                 foreach($dados as $row){
@@ -667,6 +693,7 @@ class Usuario extends CI_Controller {
                 $data['imagem_usuario'] = $row->imagem_usuario;
                 $data['id_usuario'] = $row->id_usuario;
             }
+            $data['solicitacao'] = count($this->solicitacao_model->get($id));
             $data['post'] = $this->post_model->getPostId($id_post);
             if($data['post'] == null) $this->erro();
             $this->load->view('usuario/visualizar_post',$data);
@@ -686,6 +713,7 @@ class Usuario extends CI_Controller {
                 $data['imagem_usuario'] = $row->imagem_usuario;
                 $data['id_usuario'] = $row->id_usuario;
             }
+            $data['solicitacao'] = count($this->solicitacao_model->get($id));
             $data['categorias'] = $this->categoria_model->get();
             $data['post'] = $this->post_model->getPostId($id_post);
             if($data['post'] == null) $this->erro();
@@ -708,7 +736,7 @@ class Usuario extends CI_Controller {
         {
             $session_data = $this->session->userdata('logged_in');
             $id = $session_data['id'];
-
+            $data['solicitacao'] = count($this->solicitacao_model->get($id));
             $data['tipo_post'] = $this->input->post('tipo');
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -771,6 +799,7 @@ class Usuario extends CI_Controller {
         if($this->session->userdata('logged_in')) {
             $session_data = $this->session->userdata('logged_in');
             $id = $session_data['id'];
+            $data['solicitacao'] = count($this->solicitacao_model->get($id));
             $this->load->library('form_validation');
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             $this->form_validation->set_rules('nome_usuario', 'Nome', 'required|min_length[5]|max_length[80]');
@@ -825,6 +854,7 @@ class Usuario extends CI_Controller {
                 $data['imagem_usuario'] = $row->imagem_usuario;
                 $data['id_usuario'] = $row->id_usuario;
             }
+            $data['solicitacao'] = count($this->solicitacao_model->get($id));
             $this->load->view('erros/pagina_nao_encontrada',$data);
 
         }else{
@@ -844,6 +874,7 @@ class Usuario extends CI_Controller {
                 $data['imagem_usuario'] = $row->imagem_usuario;
                 $data['id_usuario'] = $row->id_usuario;
             }
+            $data['solicitacao'] = count($this->solicitacao_model->get($id));
             $this->load->view('usuario/meus_grupo',$data);
 
         }else{
@@ -851,7 +882,7 @@ class Usuario extends CI_Controller {
         }
     }
 
-    public function visualizarGrupo($id,$nome){
+    public function visualizarGrupo($id_grupo,$nome){
 
        // $string = str_replace("-", " ", $nome);
 
@@ -868,6 +899,8 @@ class Usuario extends CI_Controller {
                 $data['imagem_usuario'] = $row->imagem_usuario;
                 $data['id_usuario'] = $row->id_usuario;
             }
+            $data['nome_grupo'] =  str_replace("-", " ", $nome);
+            $data['id_grupo'] = $id_grupo;
 
             $data['posts']= $this->post_model->getByUser($id);
 
@@ -883,6 +916,117 @@ class Usuario extends CI_Controller {
         }
 
 
+
+    }
+
+    public function getSolicitacao(){
+        $this->load->helper('date');
+        $this->load->library('session');
+        if($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            $id = $session_data['id'];
+            $dados = $this->usuario_model->getbyid($id);
+            foreach($dados as $row){
+                $data['nome_usuario'] = $row->login_usuario;
+                $data['imagem_usuario'] = $row->imagem_usuario;
+                $data['id_usuario'] = $row->id_usuario;
+            }
+            $data['solicitacoes'] = $this->solicitacao_model->get($id);
+            //$data['solicitacao'] = count($data['solicitacoes']);
+            $this->load->view('usuario/solicitacao',$data);
+
+        }else{
+            redirect('/');
+        }
+
+    }
+
+    public function carregarSolicitacao(){
+
+        $this->load->helper('date');
+        $this->load->library('session');
+        if($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            $id = $session_data['id'];
+            $dados = $this->usuario_model->getbyid($id);
+
+            $data['solicitacoes'] = $this->solicitacao_model->get($id);
+           foreach($data['solicitacoes'] as $key => $value){
+
+
+
+
+
+               echo '<tr>
+
+                        <td>
+                            <b>'. $value->login_usuario.'</b>
+                        </td>
+                        <td>
+                          Solicita Participação do &nbsp<b>'. $value->nome_grupo.'</b>
+                        </td>
+                        <td>
+                            <a class="confirma_solicitacao" href="/solicitacao/confirmar/'.$value->id_solicitacao.'/'.$value->id_grupo.'"  onclick="teste()" >Confirmar
+                            </a>
+                         </td>
+                         <td> <a href="/remover/post/#" id="" class="po" data-toggle="popover">Recusar
+                            </a>
+                         </td>
+                        </tr>
+               ';
+
+             echo ' <ul id="pagination" class="footable-nav"><span>Paginas:</span></ul>';
+           }
+        }else{
+            redirect('/');
+        }
+    }
+
+
+    public function confirmarSolicitacao($id_s, $id_grupo){
+
+        $this->load->helper('date');
+        $this->load->library('session');
+        if($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            $id = $session_data['id'];
+            $dados = $this->usuario_model->getbyid($id);
+            foreach($dados as $row){
+                $data['nome_usuario'] = $row->login_usuario;
+                $data['imagem_usuario'] = $row->imagem_usuario;
+                $data['id_usuario'] = $row->id_usuario;
+            }
+
+            $this->grupo_model->insert_user($id,$id_grupo);
+            $this->solicitacao_model->remover($id_s);
+            redirect('/solicitacoes?aprovado=yes');
+
+        }else{
+            redirect('/');
+        }
+
+
+    }
+
+    public function recusarSolicitacao(){
+
+
+
+    }
+
+    public function getNumSolicitacao(){
+        $this->load->helper('date');
+        $this->load->library('session');
+        if($this->session->userdata('logged_in')) {
+            $session_data = $this->session->userdata('logged_in');
+            $id = $session_data['id'];
+
+            echo count($this->solicitacao_model->get($id));
+
+
+        }else{
+            redirect('/');
+        }
 
     }
 

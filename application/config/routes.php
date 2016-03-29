@@ -122,6 +122,16 @@ $route['teste'] = 'usuario/teste';
 /* grupos */
 
 $route['listar/grupos'] = 'grupo/getGrupos';
-$route['grupo/(:num)/(:any)'] = 'usuario/visualizarGrupo/$1/$2';
-$route['grupos/(:num)/pessoas'] = 'grupo/getPessoasGrupo/$1';
-$route['grupos/(:num)/pessoas/add'] = 'grupo/addPessoaGrupo/$1';
+$route['grupo/(:num)/(:any)'] = 'grupo/visualizarGrupo/$1/$2';
+$route['grupo/(:num)/(:any)/participantes'] = 'grupo/getPessoasGrupo/$1/$2';
+$route['grupo/(:num)/(:any)/participante/add'] = 'grupo/addPessoasGrupo/$1/$2';
+//$route['grupo/(:num)/pessoas/add'] = 'grupo/addPessoaGrupo/$1';
+
+
+/*solicicoes */
+
+$route['solicitacoes'] = 'usuario/getSolicitacao';
+$route['solicitacao/confirmar/(:num)/(:num)'] = 'usuario/confirmarSolicitacao/$1/$2';
+$route['solicitacao/recusar/(:num)/(:num)'] = 'usuario/recusarSolicitacao/$1/$2';
+$route['solicitacao/get'] = 'usuario/getNumSolicitacao';
+$route['solicitacao/listar'] = 'usuario/carregarSolicitacao';

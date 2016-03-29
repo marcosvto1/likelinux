@@ -22,9 +22,14 @@
             <a class="nav-link" href="/listar/grupos">Meus Grupos</a>
         </li>
 
-      <!--  <li class="nav-item">
-            <a class="nav-link" href="/editar/perfil">Minha Conta</a>
-        </li>-->
+        <li class="nav-item">
+            <a class="nav-link" href="/solicitacoes">Solicitações   <span id="notifica" class="label label-default label-pill pull-xs-right"></span></a>
+        </li>
+
+
+        <!--  <li class="nav-item">
+              <a class="nav-link" href="/editar/perfil">Minha Conta</a>
+          </li>-->
 
 
 

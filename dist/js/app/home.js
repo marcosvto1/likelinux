@@ -4,8 +4,6 @@
 var filter_click = 0;
 var global_url = '';
 $(document).ready(function(){
-
-
         init();
         filter();
     removerPost();
